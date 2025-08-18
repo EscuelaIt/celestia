@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write --ignore-path .gitignore ."
+    "format": "prettier --write --ignore-path .gitignore .",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "15.4.6",
@@ -28,5 +29,9 @@
     "tailwindcss": "4.1.12",
     "typescript": "5.9.2",
     "vitest": "3.2.4"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "eslint --cache --fix",
+    "*.{js,ts,tsx,css,md}": "prettier --write"
   }
 }
