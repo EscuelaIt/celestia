@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix",
     "type:check": "tsc --noEmit",
     "format": "prettier --write --ignore-path .gitignore .",
-    "format:check": "prettier --ignore-path .gitignore .",
+    "format:check": "prettier --check --ignore-path .gitignore .",
     "test": "npm run test:unit && npm run test:integration && npm run test:e2e",
     "test:unit": "vitest --run --project unit",
     "test:integration": "vitest --run --project integration",
