@@ -49,7 +49,8 @@
     "tw-animate-css": "1.3.7",
     "typescript": "5.9.2",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "3.2.4"
+    "vitest": "3.2.4",
+    "vitest-browser-react": "1.0.1"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
