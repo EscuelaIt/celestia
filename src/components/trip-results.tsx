@@ -33,9 +33,9 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
   const totalFood = Math.ceil(destination.resources.food * travelTime)
 
   const formatTime = (days: number) => {
-    if (days < 30) return `${days} días`
-    if (days < 365) return `${Math.ceil(days / 30)} meses`
-    return `${(days / 365).toFixed(1)} años`
+    if (days < 30) return `${days} days`
+    if (days < 365) return `${Math.ceil(days / 30)} months`
+    return `${(days / 365).toFixed(1)} years`
   }
 
   const getResourceColor = (amount: number, type: string) => {
@@ -49,14 +49,14 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
     <div className="space-y-6 animate-in slide-in-from-right-4 duration-700">
       <div className="text-center">
         <h2 className="text-3xl font-bold mb-2 text-foreground">
-          <span className="text-accent">/</span>Plan de Viaje
+          <span className="text-accent">/</span>Trip Plan
         </h2>
         <div className="flex items-center justify-center gap-3 mb-4">
           <span className="text-4xl animate-float">{destination.emoji}</span>
           <div>
-            <h3 className="text-2xl font-semibold text-card-foreground">Destino: {destination.name}</h3>
+            <h3 className="text-2xl font-semibold text-card-foreground">Destination: {destination.name}</h3>
             <Badge variant="outline" className="text-sm">
-              {shipType === 'classic' ? '🚀 Cohete Clásico' : '🛸 Nave Avanzada'}
+              {shipType === 'classic' ? '🚀 Classic Rocket' : '🛸 Advanced Ship'}
             </Badge>
           </div>
         </div>
@@ -67,12 +67,12 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
               <span className="text-primary">📏</span>
-              Distancia
+              Distance
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-primary">{destination.distance.toLocaleString()}</div>
-            <div className="text-sm text-muted-foreground">millones de km</div>
+            <div className="text-sm text-muted-foreground">million km</div>
           </CardContent>
         </Card>
 
@@ -80,12 +80,12 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
               <span className="text-accent">⏱️</span>
-              Tiempo de Viaje
+              Travel Time
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-accent">{formatTime(travelTime)}</div>
-            <div className="text-sm text-muted-foreground">{travelTime} días exactos</div>
+            <div className="text-sm text-muted-foreground">{travelTime} exact days</div>
           </CardContent>
         </Card>
 
@@ -93,7 +93,7 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
               <span className="text-chart-2">⚡</span>
-              Velocidad Promedio
+              Average Speed
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -108,14 +108,14 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
       <Card className="bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="text-xl flex items-center gap-2">
-            <span className="text-accent">/</span>Recursos Necesarios
+            <span className="text-accent">/</span>Required Resources
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-sm font-medium">💧 Agua</span>
+                <span className="flex items-center gap-2 text-sm font-medium">💧 Water</span>
                 <span className={`font-bold ${getResourceColor(totalWater, 'water')}`}>
                   {totalWater.toLocaleString()} L
                 </span>
@@ -128,7 +128,7 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-sm font-medium">🫁 Oxígeno</span>
+                <span className="flex items-center gap-2 text-sm font-medium">🫁 Oxygen</span>
                 <span className={`font-bold ${getResourceColor(totalOxygen, 'oxygen')}`}>
                   {totalOxygen.toLocaleString()} kg
                 </span>
@@ -141,7 +141,7 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-sm font-medium">🍽️ Comida</span>
+                <span className="flex items-center gap-2 text-sm font-medium">🍽️ Food</span>
                 <span className={`font-bold ${getResourceColor(totalFood, 'food')}`}>
                   {totalFood.toLocaleString()} kg
                 </span>
@@ -155,7 +155,7 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
 
           <div className="pt-4 border-t border-border">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Carga total estimada:</span>
+              <span className="text-muted-foreground">Estimated total load:</span>
               <span className="font-bold text-foreground">
                 {(totalWater + totalOxygen + totalFood).toLocaleString()} kg
               </span>

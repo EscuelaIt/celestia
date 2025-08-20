@@ -25,27 +25,27 @@ interface Destination {
 const destinations: Destination[] = [
   {
     id: 'moon',
-    name: 'Luna',
+    name: 'Moon',
     distance: 0.384,
-    description: 'Nuestro satélite natural, el primer paso hacia las estrellas',
+    description: 'Our natural satellite, the first step towards the stars',
     travelTime: { classic: 3, advanced: 1 },
     resources: { water: 3.5, oxygen: 0.84, food: 2.1 },
     emoji: '🌙',
   },
   {
     id: 'mars',
-    name: 'Marte',
+    name: 'Mars',
     distance: 225,
-    description: 'El planeta rojo, futuro hogar de la humanidad',
+    description: 'The red planet, future home of humanity',
     travelTime: { classic: 260, advanced: 120 },
     resources: { water: 4.2, oxygen: 1.0, food: 2.8 },
     emoji: '🔴',
   },
   {
     id: 'jupiter',
-    name: 'Júpiter',
+    name: 'Jupiter',
     distance: 628,
-    description: 'El gigante gaseoso con sus fascinantes lunas',
+    description: 'The gas giant with its fascinating moons',
     travelTime: { classic: 550, advanced: 280 },
     resources: { water: 5.0, oxygen: 1.2, food: 3.5 },
     emoji: '🪐',
@@ -54,7 +54,7 @@ const destinations: Destination[] = [
     id: 'europa',
     name: 'Europa',
     distance: 628,
-    description: 'Luna de Júpiter con océanos bajo su superficie helada',
+    description: "Jupiter's moon with oceans beneath its frozen surface",
     travelTime: { classic: 580, advanced: 300 },
     resources: { water: 4.8, oxygen: 1.15, food: 3.2 },
     emoji: '🧊',
@@ -79,7 +79,7 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold mb-4 text-foreground">
-          <span className="text-accent">/</span>Seleccionar Destino
+          <span className="text-accent">/</span>Select Destination
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {destinations.map(destination => (
@@ -98,7 +98,7 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
                   <div>
                     <h3 className="text-xl font-semibold text-card-foreground">{destination.name}</h3>
                     <Badge variant="secondary" className="text-xs">
-                      {destination.distance} millones km
+                      {destination.distance} million km
                     </Badge>
                   </div>
                 </div>
@@ -112,7 +112,7 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
       {selectedDestination && (
         <div className="animate-in slide-in-from-bottom-4 duration-500">
           <h3 className="text-xl font-bold mb-4 text-foreground">
-            <span className="text-accent">/</span>Tipo de Nave
+            <span className="text-accent">/</span>Ship Type
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <Card
@@ -125,8 +125,8 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">🚀</span>
                   <div>
-                    <h4 className="font-semibold text-card-foreground">Cohete Clásico</h4>
-                    <p className="text-sm text-muted-foreground">Tecnología probada y confiable</p>
+                    <h4 className="font-semibold text-card-foreground">Classic Rocket</h4>
+                    <p className="text-sm text-muted-foreground">Proven and reliable technology</p>
                   </div>
                 </div>
               </CardContent>
@@ -142,8 +142,8 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">🛸</span>
                   <div>
-                    <h4 className="font-semibold text-card-foreground">Nave Avanzada</h4>
-                    <p className="text-sm text-muted-foreground">Propulsión de nueva generación</p>
+                    <h4 className="font-semibold text-card-foreground">Advanced Ship</h4>
+                    <p className="text-sm text-muted-foreground">Next-generation propulsion</p>
                   </div>
                 </div>
               </CardContent>
@@ -154,7 +154,7 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
             onClick={handlePlanTrip}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 text-lg transition-all duration-300 hover:scale-105"
           >
-            <span className="text-accent">/</span>Calcular Viaje
+            <span className="text-accent">/</span>Calculate Trip
           </Button>
         </div>
       )}

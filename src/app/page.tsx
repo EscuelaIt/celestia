@@ -46,7 +46,7 @@ export default function CelestiaApp() {
             <span className="text-accent">/</span>Celestia
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Planificador de Viajes Espaciales
+            Space Travel Planner
           </p>
           <div className="mt-6 flex items-center justify-center gap-2">
             <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
@@ -66,7 +66,7 @@ export default function CelestiaApp() {
                   onClick={handleNewTrip}
                   className="px-6 py-3 bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-lg font-medium transition-all duration-300 hover:scale-105"
                 >
-                  <span className="text-accent">/</span>Planificar Nuevo Viaje
+                  <span className="text-accent">/</span>Plan New Trip
                 </button>
               </div>
             </div>
@@ -74,7 +74,7 @@ export default function CelestiaApp() {
         </main>
 
         <footer className="mt-16 text-center text-muted-foreground">
-          <p className="text-sm">Explorando el cosmos, un viaje a la vez ✨</p>
+          <p className="text-sm">Exploring the cosmos, one journey at a time ✨</p>
         </footer>
       </div>
     </div>
