@@ -112,7 +112,7 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
       {selectedDestination && (
         <div className="animate-in slide-in-from-bottom-4 duration-500">
           <h3 className="text-xl font-bold mb-4 text-foreground">
-            <span className="text-accent">/</span>Ship Type
+            <span className="text-white">/</span>Ship Type
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <Card
@@ -150,12 +150,14 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
             </Card>
           </div>
 
-          <Button
-            onClick={handlePlanTrip}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 text-lg transition-all duration-300 hover:scale-105"
-          >
-            <span className="text-accent">/</span>Calculate Trip
-          </Button>
+          <div className="w-full flex justify-center">
+            <Button
+              onClick={handlePlanTrip}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 py-3 text-lg transition-all duration-300 hover:scale-105"
+            >
+              <span className="text-white">/</span>Calculate Trip
+            </Button>
+          </div>
         </div>
       )}
     </div>

@@ -66,7 +66,7 @@ export default function CelestiaApp() {
                   onClick={handleNewTrip}
                   className="px-6 py-3 bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-lg font-medium transition-all duration-300 hover:scale-105"
                 >
-                  <span className="text-accent">/</span>Plan New Trip
+                  <span className="text-white">/</span>Plan New Trip
                 </button>
               </div>
             </div>
