@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -21,12 +21,8 @@ export function DestinationSelector() {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const response = await fetch('/api/destinations')
-        if (!response.ok) {
-          throw new Error('Failed to fetch destinations')
-        }
-        const data = await response.json()
-        setDestinations(data)
+        const destinations = await getDestinationsUseCase.execute()
+        setDestinations(destinations)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
       } finally {
