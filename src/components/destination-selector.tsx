@@ -112,7 +112,7 @@ export function DestinationSelector({ onDestinationSelect }: DestinationSelector
       {selectedDestination && (
         <div className="animate-in slide-in-from-bottom-4 duration-500">
           <h3 className="text-xl font-bold mb-4 text-foreground">
-            <span className="text-white">/</span>Ship Type
+            <span className="text-accent">/</span>Ship Type
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <Card
