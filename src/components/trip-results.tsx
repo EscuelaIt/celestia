@@ -122,7 +122,7 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
               </div>
               <Progress value={Math.min((totalWater / 2000) * 100, 100)} className="h-2" />
               <div className="text-xs text-muted-foreground">
-                {destination.resources.water} L/día × {travelTime} días
+                {destination.resources.water} L/day × {travelTime} days
               </div>
             </div>
 
@@ -135,7 +135,7 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
               </div>
               <Progress value={Math.min((totalOxygen / 500) * 100, 100)} className="h-2" />
               <div className="text-xs text-muted-foreground">
-                {destination.resources.oxygen} kg/día × {travelTime} días
+                {destination.resources.oxygen} kg/day × {travelTime} days
               </div>
             </div>
 
@@ -148,7 +148,7 @@ export function TripResults({ destination, shipType }: TripResultsProps) {
               </div>
               <Progress value={Math.min((totalFood / 1000) * 100, 100)} className="h-2" />
               <div className="text-xs text-muted-foreground">
-                {destination.resources.food} kg/día × {travelTime} días
+                {destination.resources.food} kg/day × {travelTime} days
               </div>
             </div>
           </div>
