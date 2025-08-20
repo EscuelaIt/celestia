@@ -53,5 +53,16 @@
       "advanced": 459
     },
     "emoji": "🪐"
+  },
+  {
+    "id": "neptune",
+    "name": "Neptune",
+    "distance": 4495,
+    "description": "The ice giant at the edge of our solar system",
+    "travelTime": {
+      "classic": 1200,
+      "advanced": 600
+    },
+    "emoji": "🔵"
   }
 ]

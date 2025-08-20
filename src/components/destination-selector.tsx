@@ -120,6 +120,7 @@ export function DestinationSelector() {
           {destinations.map(destination => (
             <Card
               key={destination.id}
+              data-testid="destination-card"
               className={`cursor-pointer transition-all duration-300 hover:scale-105 ${
                 selectedDestination?.id === destination.id
                   ? 'ring-2 ring-accent bg-card/80 animate-pulse-glow'
@@ -151,6 +152,7 @@ export function DestinationSelector() {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <Card
+              data-testid="ship-classic"
               className={`cursor-pointer transition-all duration-300 ${
                 selectedShip === 'classic' ? 'ring-2 ring-primary bg-card/80' : 'hover:bg-card/60'
               }`}
@@ -168,6 +170,7 @@ export function DestinationSelector() {
             </Card>
 
             <Card
+              data-testid="ship-advanced"
               className={`cursor-pointer transition-all duration-300 ${
                 selectedShip === 'advanced' ? 'ring-2 ring-primary bg-card/80' : 'hover:bg-card/60'
               }`}
