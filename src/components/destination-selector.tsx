@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { AddDestinationForm } from '@/components/add-destination-form'
 
 interface Destination {
   id: string
@@ -14,11 +15,6 @@ interface Destination {
   travelTime: {
     classic: number // in days
     advanced: number // in days
-  }
-  resources: {
-    water: number // liters per day
-    oxygen: number // kg per day
-    food: number // kg per day
   }
   emoji: string
 }
@@ -30,6 +26,7 @@ export function DestinationSelector() {
   const [error, setError] = useState<string | null>(null)
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<'classic' | 'advanced'>('classic')
+  const [showAddForm, setShowAddForm] = useState(false)
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -57,6 +54,27 @@ export function DestinationSelector() {
     }
   }
 
+  const handleDestinationAdded = async () => {
+    setShowAddForm(false)
+    setLoading(true)
+    // Refresh destinations list
+    try {
+      const response = await fetch('/api/destinations')
+      if (response.ok) {
+        const data = await response.json()
+        setDestinations(data)
+      }
+    } catch (err) {
+      console.error('Failed to refresh destinations:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleCancelAdd = () => {
+    setShowAddForm(false)
+  }
+
   if (loading) {
     return (
       <div className="space-y-6">
@@ -79,12 +97,25 @@ export function DestinationSelector() {
     )
   }
 
+  if (showAddForm) {
+    return (
+      <div className="space-y-6">
+        <AddDestinationForm onDestinationAdded={handleDestinationAdded} onCancel={handleCancelAdd} />
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold mb-4 text-foreground">
-          <span className="text-accent">/</span>Select Destination
-        </h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold text-foreground">
+            <span className="text-white">/</span>Select Destination
+          </h2>
+          <Button onClick={() => setShowAddForm(true)} variant="outline" className="hover:bg-accent/20">
+            + Add New Destination
+          </Button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {destinations.map(destination => (
             <Card

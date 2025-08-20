@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
 import { SpaceBackground } from '@/components/space-background'
 
 interface Destination {
@@ -16,11 +15,6 @@ interface Destination {
     classic: number
     advanced: number
   }
-  resources: {
-    water: number
-    oxygen: number
-    food: number
-  }
   emoji: string
 }
 
@@ -28,10 +22,6 @@ interface TripCalculation {
   destination: Destination
   shipType: 'classic' | 'advanced'
   travelTime: number
-  totalWater: number
-  totalOxygen: number
-  totalFood: number
-  totalLoad: number
   averageSpeed: number
 }
 
@@ -81,13 +71,6 @@ export default function TripResultsPage() {
     if (days < 30) return `${days} days`
     if (days < 365) return `${Math.ceil(days / 30)} months`
     return `${(days / 365).toFixed(1)} years`
-  }
-
-  const getResourceColor = (amount: number, type: string) => {
-    if (type === 'water' && amount > 1000) return 'text-destructive'
-    if (type === 'oxygen' && amount > 300) return 'text-destructive'
-    if (type === 'food' && amount > 800) return 'text-destructive'
-    return 'text-accent'
   }
 
   const handleNewTrip = () => {
@@ -194,63 +177,6 @@ export default function TripResultsPage() {
                 </CardContent>
               </Card>
             </div>
-
-            <Card className="bg-card/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2">
-                  <span className="text-white">/</span>Required Resources
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-2 text-sm font-medium">💧 Water</span>
-                      <span className={`font-bold ${getResourceColor(tripData.totalWater, 'water')}`}>
-                        {tripData.totalWater.toLocaleString()} L
-                      </span>
-                    </div>
-                    <Progress value={Math.min((tripData.totalWater / 2000) * 100, 100)} className="h-2" />
-                    <div className="text-xs text-muted-foreground">
-                      {tripData.destination.resources.water} L/day × {tripData.travelTime} days
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-2 text-sm font-medium">🫁 Oxygen</span>
-                      <span className={`font-bold ${getResourceColor(tripData.totalOxygen, 'oxygen')}`}>
-                        {tripData.totalOxygen.toLocaleString()} kg
-                      </span>
-                    </div>
-                    <Progress value={Math.min((tripData.totalOxygen / 500) * 100, 100)} className="h-2" />
-                    <div className="text-xs text-muted-foreground">
-                      {tripData.destination.resources.oxygen} kg/day × {tripData.travelTime} days
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-2 text-sm font-medium">🍽️ Food</span>
-                      <span className={`font-bold ${getResourceColor(tripData.totalFood, 'food')}`}>
-                        {tripData.totalFood.toLocaleString()} kg
-                      </span>
-                    </div>
-                    <Progress value={Math.min((tripData.totalFood / 1000) * 100, 100)} className="h-2" />
-                    <div className="text-xs text-muted-foreground">
-                      {tripData.destination.resources.food} kg/day × {tripData.travelTime} days
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-border">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Estimated total load:</span>
-                    <span className="font-bold text-foreground">{tripData.totalLoad.toLocaleString()} kg</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
           <div className="text-center">

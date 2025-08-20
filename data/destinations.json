@@ -8,11 +8,6 @@
       "classic": 3,
       "advanced": 1
     },
-    "resources": {
-      "water": 3.5,
-      "oxygen": 0.84,
-      "food": 2.1
-    },
     "emoji": "🌙"
   },
   {
@@ -23,11 +18,6 @@
     "travelTime": {
       "classic": 260,
       "advanced": 120
-    },
-    "resources": {
-      "water": 4.2,
-      "oxygen": 1.0,
-      "food": 2.8
     },
     "emoji": "🔴"
   },
@@ -40,11 +30,6 @@
       "classic": 550,
       "advanced": 280
     },
-    "resources": {
-      "water": 5.0,
-      "oxygen": 1.2,
-      "food": 3.5
-    },
     "emoji": "🪐"
   },
   {
@@ -56,11 +41,17 @@
       "classic": 580,
       "advanced": 300
     },
-    "resources": {
-      "water": 4.8,
-      "oxygen": 1.15,
-      "food": 3.2
-    },
     "emoji": "🧊"
+  },
+  {
+    "id": "saturn",
+    "name": "Saturn",
+    "distance": 1275,
+    "description": "The ringer giants",
+    "travelTime": {
+      "classic": 900,
+      "advanced": 459
+    },
+    "emoji": "🪐"
   }
 ]
