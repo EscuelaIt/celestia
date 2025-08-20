@@ -6,18 +6,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/components/add-destination-form'
-
-interface Destination {
-  id: string
-  name: string
-  distance: number // in million km
-  description: string
-  travelTime: {
-    classic: number // in days
-    advanced: number // in days
-  }
-  emoji: string
-}
+import { Destination } from '@/components/destination'
+import { getDestinationsUseCase } from '@/app/container'
 
 export function DestinationSelector() {
   const router = useRouter()
