@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -22,57 +23,60 @@ interface Destination {
   emoji: string
 }
 
-const destinations: Destination[] = [
-  {
-    id: 'moon',
-    name: 'Moon',
-    distance: 0.384,
-    description: 'Our natural satellite, the first step towards the stars',
-    travelTime: { classic: 3, advanced: 1 },
-    resources: { water: 3.5, oxygen: 0.84, food: 2.1 },
-    emoji: '🌙',
-  },
-  {
-    id: 'mars',
-    name: 'Mars',
-    distance: 225,
-    description: 'The red planet, future home of humanity',
-    travelTime: { classic: 260, advanced: 120 },
-    resources: { water: 4.2, oxygen: 1.0, food: 2.8 },
-    emoji: '🔴',
-  },
-  {
-    id: 'jupiter',
-    name: 'Jupiter',
-    distance: 628,
-    description: 'The gas giant with its fascinating moons',
-    travelTime: { classic: 550, advanced: 280 },
-    resources: { water: 5.0, oxygen: 1.2, food: 3.5 },
-    emoji: '🪐',
-  },
-  {
-    id: 'europa',
-    name: 'Europa',
-    distance: 628,
-    description: "Jupiter's moon with oceans beneath its frozen surface",
-    travelTime: { classic: 580, advanced: 300 },
-    resources: { water: 4.8, oxygen: 1.15, food: 3.2 },
-    emoji: '🧊',
-  },
-]
-
-interface DestinationSelectorProps {
-  onDestinationSelect: (destination: Destination, shipType: 'classic' | 'advanced') => void
-}
-
-export function DestinationSelector({ onDestinationSelect }: DestinationSelectorProps) {
+export function DestinationSelector() {
+  const router = useRouter()
+  const [destinations, setDestinations] = useState<Destination[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<'classic' | 'advanced'>('classic')
 
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const response = await fetch('/api/destinations')
+        if (!response.ok) {
+          throw new Error('Failed to fetch destinations')
+        }
+        const data = await response.json()
+        setDestinations(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchDestinations()
+  }, [])
+
   const handlePlanTrip = () => {
     if (selectedDestination) {
-      onDestinationSelect(selectedDestination, selectedShip)
+      // Navigate to trip results page instead of calling callback
+      router.push(`/trip/${selectedDestination.id}/${selectedShip}`)
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading destinations...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4 text-destructive">Error</h2>
+          <p className="text-muted-foreground">{error}</p>
+        </div>
+      </div>
+    )
   }
 
   return (

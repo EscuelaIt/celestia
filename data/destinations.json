@@ -1,0 +1,66 @@
+[
+  {
+    "id": "moon",
+    "name": "Moon",
+    "distance": 0.384,
+    "description": "Our natural satellite, the first step towards the stars",
+    "travelTime": {
+      "classic": 3,
+      "advanced": 1
+    },
+    "resources": {
+      "water": 3.5,
+      "oxygen": 0.84,
+      "food": 2.1
+    },
+    "emoji": "🌙"
+  },
+  {
+    "id": "mars",
+    "name": "Mars",
+    "distance": 225,
+    "description": "The red planet, future home of humanity",
+    "travelTime": {
+      "classic": 260,
+      "advanced": 120
+    },
+    "resources": {
+      "water": 4.2,
+      "oxygen": 1.0,
+      "food": 2.8
+    },
+    "emoji": "🔴"
+  },
+  {
+    "id": "jupiter",
+    "name": "Jupiter",
+    "distance": 628,
+    "description": "The gas giant with its fascinating moons",
+    "travelTime": {
+      "classic": 550,
+      "advanced": 280
+    },
+    "resources": {
+      "water": 5.0,
+      "oxygen": 1.2,
+      "food": 3.5
+    },
+    "emoji": "🪐"
+  },
+  {
+    "id": "europa",
+    "name": "Europa",
+    "distance": 628,
+    "description": "Jupiter's moon with oceans beneath its frozen surface",
+    "travelTime": {
+      "classic": 580,
+      "advanced": 300
+    },
+    "resources": {
+      "water": 4.8,
+      "oxygen": 1.15,
+      "food": 3.2
+    },
+    "emoji": "🧊"
+  }
+]
