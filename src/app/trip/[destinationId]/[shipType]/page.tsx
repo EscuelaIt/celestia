@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { SpaceBackground } from '@/components/space-background'
-import { calculateTripCmd } from '@/app/container'
+import { calculateTripCmd, useCaseService } from '@/app/container'
 import type { Trip } from '@/app/trip'
 import type { ShipType } from '@/app/ship-type'
 import type { Id } from '@/app/id'
@@ -23,7 +23,7 @@ export default function TripResultsPage() {
   useEffect(() => {
     const fetchTripData = async () => {
       try {
-        const trip = await calculateTripCmd.execute({ destinationId, shipType })
+        const trip = await useCaseService.execute(calculateTripCmd, { destinationId, shipType })
         setTripData(trip)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
