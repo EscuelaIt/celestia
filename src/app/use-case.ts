@@ -1,3 +1,3 @@
-export interface UseCase<In = void, Out = void> {
-  execute(input: In): Promise<Out>
+export interface UseCase<In = unknown, Out = unknown> {
+  execute(input?: In): Promise<Out>
 }
