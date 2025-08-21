@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/components/add-destination-form'
 import type { Destination } from '@/components/destination'
 import { getDestinationsUseCase } from '@/app/container'
+import type { ShipType } from '@/components/ship-type'
 
 export function DestinationSelector() {
   const router = useRouter()
@@ -15,7 +16,7 @@ export function DestinationSelector() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
-  const [selectedShip, setSelectedShip] = useState<'classic' | 'advanced'>('classic')
+  const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
   const [showAddForm, setShowAddForm] = useState(false)
 
   useEffect(() => {

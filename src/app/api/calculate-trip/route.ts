@@ -1,30 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 import { promises as fs } from 'fs'
-
-interface Destination {
-  id: string
-  name: string
-  distance: number
-  description: string
-  travelTime: {
-    classic: number
-    advanced: number
-  }
-  emoji: string
-}
-
-interface TripCalculation {
-  destination: Destination
-  shipType: 'classic' | 'advanced'
-  travelTime: number
-  averageSpeed: number
-}
+import type { Trip } from '@/components/trip'
+import type { Destination } from '@/components/destination'
+import type { Id } from '@/app/id'
+import type { ShipType } from '@/components/ship-type'
 
 export async function POST(request: NextRequest) {
   try {
-    const { destinationId, shipType }: { destinationId: string; shipType: 'classic' | 'advanced' } =
-      await request.json()
+    const { destinationId, shipType }: { destinationId: Id; shipType: ShipType } = await request.json()
 
     if (!destinationId || !shipType) {
       return NextResponse.json({ error: 'destinationId and shipType are required' }, { status: 400 })
@@ -49,7 +33,7 @@ export async function POST(request: NextRequest) {
     const travelTime = destination.travelTime[shipType]
     const averageSpeed = Math.round((destination.distance * 1000000) / (travelTime * 24))
 
-    const calculation: TripCalculation = {
+    const calculation: Trip = {
       destination,
       shipType,
       travelTime,

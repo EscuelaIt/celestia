@@ -1,18 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 import { promises as fs } from 'fs'
-
-interface Destination {
-  id: string
-  name: string
-  distance: number
-  description: string
-  travelTime: {
-    classic: number
-    advanced: number
-  }
-  emoji: string
-}
+import type { Destination } from '@/components/destination'
+import type { CreateDestination } from '@/components/create-destination'
 
 export async function GET() {
   try {
@@ -30,7 +20,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const newDestination: Omit<Destination, 'id'> = await request.json()
+    const newDestination: CreateDestination = await request.json()
 
     // Validate required fields
     if (
