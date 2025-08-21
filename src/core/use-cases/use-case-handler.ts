@@ -7,7 +7,7 @@ export class UseCaseHandler implements UseCase {
     private readonly middlewares: Middleware,
   ) {}
 
-  execute(input?: unknown): Promise<unknown> {
+  handle(input?: unknown): Promise<unknown> {
     return this.middlewares.intercept(input, this.useCase)
   }
 
