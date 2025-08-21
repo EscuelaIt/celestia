@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/features/destination/destination-create/add-destination-form'
 import type { Destination } from '@/features/destination/destination'
-import { getDestinationsQry, useCaseService } from '@/app/container/container'
+import { getDestinationsQry, useCaseService } from '@/core/container/container'
 import type { ShipType } from '@/features/trip/ship-type'
 
 export function DestinationSelector() {

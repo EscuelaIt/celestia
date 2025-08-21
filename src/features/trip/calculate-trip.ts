@@ -1,4 +1,4 @@
-import type { Id } from '@/app/models/id'
+import type { Id } from '@/core/types/id'
 import type { ShipType } from '@/features/trip/ship-type'
 
 export interface CalculateTrip {

@@ -3,7 +3,7 @@ import path from 'path'
 import { promises as fs } from 'fs'
 import type { Trip } from '@/features/trip/trip'
 import type { Destination } from '@/features/destination/destination'
-import type { Id } from '@/app/models/id'
+import type { Id } from '@/core/types/id'
 import type { ShipType } from '@/features/trip/ship-type'
 
 export async function POST(request: NextRequest) {

@@ -1,6 +1,6 @@
 import type { CalculateTrip } from '@/features/trip/calculate-trip'
 import type { Trip } from '@/features/trip/trip'
-import type { Command } from '@/app/use-cases/command'
+import type { Command } from '@/core/use-cases/command'
 
 export class CalculateTripCmd implements Command<CalculateTrip, Trip> {
   async execute(calculateTrip: CalculateTrip): Promise<Trip> {
