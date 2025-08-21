@@ -1,7 +1,7 @@
-import type { UseCase } from '@/app/use-case'
 import type { Destination } from '@/components/destination'
+import type { Query } from '@/app/query'
 
-export class GetDestinationsUseCase implements UseCase<void, Destination[]> {
+export class GetDestinationsQry implements Query<Destination[]> {
   async execute(): Promise<Destination[]> {
     const response = await fetch('/api/destinations')
     if (!response.ok) {

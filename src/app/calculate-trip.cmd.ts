@@ -1,8 +1,8 @@
-import type { UseCase } from '@/app/use-case'
 import type { CalculateTrip } from '@/components/calculate-trip'
 import type { Trip } from '@/components/trip'
+import type { Command } from '@/app/command'
 
-export class CalculateTripUseCase implements UseCase<CalculateTrip, Trip> {
+export class CalculateTripCmd implements Command<CalculateTrip, Trip> {
   async execute(calculateTrip: CalculateTrip): Promise<Trip> {
     const response = await fetch('/api/calculate-trip', {
       method: 'POST',

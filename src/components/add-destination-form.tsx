@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { createDestinationUseCase } from '@/app/container'
+import { createDestinationCmd } from '@/app/container'
 
 interface AddDestinationFormProps {
   onDestinationAdded: () => void
@@ -88,7 +88,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
         emoji: formData.emoji.trim(),
       }
 
-      createDestinationUseCase.execute(newDestination)
+      createDestinationCmd.execute(newDestination)
 
       onDestinationAdded()
     } catch (err) {

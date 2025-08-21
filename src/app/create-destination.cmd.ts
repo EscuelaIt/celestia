@@ -1,7 +1,7 @@
-import type { UseCase } from '@/app/use-case'
 import type { CreateDestination } from '@/components/create-destination'
+import type { Command } from '@/app/command'
 
-export class CreateDestinationUseCase implements UseCase<CreateDestination, void> {
+export class CreateDestinationCmd implements Command<CreateDestination> {
   async execute(createDestination: CreateDestination): Promise<void> {
     const response = await fetch('/api/destinations', {
       method: 'POST',

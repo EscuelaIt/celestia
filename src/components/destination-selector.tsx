@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/components/add-destination-form'
 import type { Destination } from '@/components/destination'
-import { getDestinationsUseCase } from '@/app/container'
+import { getDestinationsQry } from '@/app/container'
 import type { ShipType } from '@/components/ship-type'
 
 export function DestinationSelector() {
@@ -22,7 +22,7 @@ export function DestinationSelector() {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const destinations = await getDestinationsUseCase.execute()
+        const destinations = await getDestinationsQry.execute()
         setDestinations(destinations)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')

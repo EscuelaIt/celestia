@@ -1,7 +1,7 @@
-import { GetDestinationsUseCase } from '@/app/get-destinations.use-case'
-import { CreateDestinationUseCase } from '@/app/create-destination.use-case'
-import { CalculateTripUseCase } from '@/app/calculate-trip.use-case'
+import { GetDestinationsQry } from '@/app/get-destinations.qry'
+import { CreateDestinationCmd } from '@/app/create-destination.cmd'
+import { CalculateTripCmd } from '@/app/calculate-trip.cmd'
 
-export const getDestinationsUseCase = new GetDestinationsUseCase()
-export const createDestinationUseCase = new CreateDestinationUseCase()
-export const calculateTripUseCase = new CalculateTripUseCase()
+export const getDestinationsQry = new GetDestinationsQry()
+export const createDestinationCmd = new CreateDestinationCmd()
+export const calculateTripCmd = new CalculateTripCmd()
