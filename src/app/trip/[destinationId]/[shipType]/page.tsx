@@ -6,8 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { SpaceBackground } from '@/components/space-background'
 import { calculateTripCmd, useCaseService } from '@/app/container/container'
-import type { Trip } from '@/app/models/trip'
-import type { ShipType } from '@/app/models/ship-type'
+import type { Trip } from '@/features/trip/trip'
+import type { ShipType } from '@/features/trip/ship-type'
 import type { Id } from '@/app/models/id'
 
 export default function TripResultsPage() {

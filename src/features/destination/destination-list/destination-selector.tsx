@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { AddDestinationForm } from '@/components/add-destination-form'
-import type { Destination } from '@/app/models/destination'
+import { AddDestinationForm } from '@/features/destination/destination-create/add-destination-form'
+import type { Destination } from '@/features/destination/destination'
 import { getDestinationsQry, useCaseService } from '@/app/container/container'
-import type { ShipType } from '@/app/models/ship-type'
+import type { ShipType } from '@/features/trip/ship-type'
 
 export function DestinationSelector() {
   const router = useRouter()
