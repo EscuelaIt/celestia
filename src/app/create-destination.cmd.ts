@@ -1,4 +1,4 @@
-import type { CreateDestination } from '@/components/create-destination'
+import type { CreateDestination } from '@/app/create-destination'
 import type { Command } from '@/app/command'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {

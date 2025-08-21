@@ -1,4 +1,4 @@
-import type { Destination } from '@/components/destination'
+import type { Destination } from '@/app/destination'
 import type { Query } from '@/app/query'
 
 export class GetDestinationsQry implements Query<Destination[]> {

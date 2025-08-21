@@ -1,5 +1,5 @@
-import type { Destination } from '@/components/destination'
-import type { ShipType } from '@/components/ship-type'
+import type { Destination } from '@/app/destination'
+import type { ShipType } from '@/app/ship-type'
 
 export interface Trip {
   destination: Destination

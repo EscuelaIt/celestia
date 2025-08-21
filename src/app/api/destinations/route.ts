@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 import { promises as fs } from 'fs'
-import type { Destination } from '@/components/destination'
-import type { CreateDestination } from '@/components/create-destination'
+import type { Destination } from '@/app/destination'
+import type { CreateDestination } from '@/app/create-destination'
 
 export async function GET() {
   try {

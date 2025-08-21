@@ -6,9 +6,9 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/components/add-destination-form'
-import type { Destination } from '@/components/destination'
+import type { Destination } from '@/app/destination'
 import { getDestinationsQry } from '@/app/container'
-import type { ShipType } from '@/components/ship-type'
+import type { ShipType } from '@/app/ship-type'
 
 export function DestinationSelector() {
   const router = useRouter()
