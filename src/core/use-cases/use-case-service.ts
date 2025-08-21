@@ -8,7 +8,7 @@ export class UseCaseService {
 
   async execute<In, Out>(useCase: UseCase<In, Out>, params?: In): Promise<Out> {
     let next = UseCaseHandler.create({ middleware: new EmptyMiddleware(), next: useCase })
-    for (let i = this.middlewares.length; i >= 0; i--) {
+    for (let i = this.middlewares.length - 1; i >= 0; i--) {
       const currentMiddleware = this.middlewares[i]!
       const previous = next
       next = UseCaseHandler.create({ middleware: currentMiddleware, next: previous })

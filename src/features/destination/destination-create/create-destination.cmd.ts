@@ -2,7 +2,7 @@ import type { CreateDestination } from '@/features/destination/destination-creat
 import type { Command } from '@/core/use-cases/command'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {
-  async execute(createDestination: CreateDestination): Promise<void> {
+  async handle(createDestination: CreateDestination): Promise<void> {
     const response = await fetch('/api/destinations', {
       method: 'POST',
       headers: {
