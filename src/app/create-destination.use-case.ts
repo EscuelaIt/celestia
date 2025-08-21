@@ -1,5 +1,5 @@
-import { UseCase } from '@/app/use-case'
-import { CreateDestination } from '@/components/create-destination'
+import type { UseCase } from '@/app/use-case'
+import type { CreateDestination } from '@/components/create-destination'
 
 export class CreateDestinationUseCase implements UseCase<CreateDestination, void> {
   async execute(createDestination: CreateDestination): Promise<void> {

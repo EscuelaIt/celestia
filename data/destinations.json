@@ -42,5 +42,16 @@
       "advanced": 300
     },
     "emoji": "🧊"
+  },
+  {
+    "id": "testplanet1755782364929",
+    "name": "TestPlanet1755782364929",
+    "distance": 3000,
+    "description": "Test planet created at 1755782364929",
+    "travelTime": {
+      "classic": 800,
+      "advanced": 400
+    },
+    "emoji": "🟣"
   }
 ]

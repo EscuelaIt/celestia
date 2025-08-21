@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/components/add-destination-form'
-import { Destination } from '@/components/destination'
+import type { Destination } from '@/components/destination'
 import { getDestinationsUseCase } from '@/app/container'
 
 export function DestinationSelector() {

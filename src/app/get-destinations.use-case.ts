@@ -1,5 +1,5 @@
-import { UseCase } from '@/app/use-case'
-import { Destination } from '@/components/destination'
+import type { UseCase } from '@/app/use-case'
+import type { Destination } from '@/components/destination'
 
 export class GetDestinationsUseCase implements UseCase<void, Destination[]> {
   async execute(): Promise<Destination[]> {
