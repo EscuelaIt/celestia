@@ -5,9 +5,9 @@ export default defineConfig({
   testDir: './e2e-tests',
   testMatch: /.*\.test\.e2e\.ts/,
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  forbidOnly: !!process.env['CI'],
+  retries: process.env['CI'] ? 2 : 0,
+  workers: process.env['CI'] ?? 1,
   reporter: 'html',
   use: {
     baseURL: 'http://127.0.0.1:3000',

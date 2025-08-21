@@ -32,8 +32,8 @@ export default function TripResultsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const destinationId = params.destinationId as string
-  const shipType = params.shipType as 'classic' | 'advanced'
+  const destinationId = params['destinationId'] as string
+  const shipType = params['shipType'] as 'classic' | 'advanced'
 
   useEffect(() => {
     const fetchTripData = async () => {
