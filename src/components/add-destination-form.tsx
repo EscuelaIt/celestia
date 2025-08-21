@@ -1,19 +1,29 @@
 'use client'
 
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { createDestinationUseCase } from '@/app/container'
 
 interface AddDestinationFormProps {
   onDestinationAdded: () => void
   onCancel: () => void
 }
 
+type CreateDestinationForm = {
+  name: string
+  distance: string
+  description: string
+  classicTravelTime: string
+  advancedTravelTime: string
+  emoji: string
+}
+
 export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinationFormProps) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<CreateDestinationForm>({
     name: '',
     distance: '',
     description: '',
@@ -29,7 +39,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
     setError(null)
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
@@ -78,18 +88,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
         emoji: formData.emoji.trim(),
       }
 
-      const response = await fetch('/api/destinations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newDestination),
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to add destination')
-      }
+      createDestinationUseCase.execute(newDestination)
 
       onDestinationAdded()
     } catch (err) {
