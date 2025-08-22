@@ -1,8 +1,8 @@
-import type { Destination } from '@/features/destination/destination'
-import type { CreateDestination } from '@/features/destination/destination-create/create-destination'
-import type { DestinationRepository } from '@/features/destination/destination.repository'
-import { GetDestinationsError } from '@/features/destination/destination-list/get-destinations.error'
-import { CreateDestinationError } from '@/features/destination/destination-create/create-destination.error'
+import type { Destination } from '@/features/destination/domain/destination'
+import type { CreateDestination } from '@/features/destination/destination-create/domain/create-destination'
+import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
+import { GetDestinationsError } from '@/features/destination/destination-list/domain/get-destinations.error'
+import { CreateDestinationError } from '@/features/destination/destination-create/domain/create-destination.error'
 
 export class DestinationApiRepository implements DestinationRepository {
   async findAll(): Promise<Destination[]> {

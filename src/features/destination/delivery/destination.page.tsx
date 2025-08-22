@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 import { SpaceBackground } from '@/components/space-background'
-import { DestinationSelector } from '@/features/destination/destination-list/destination-selector'
+import { DestinationSelector } from '@/features/destination/destination-list/delivery/destination-selector'
 
 export const DestinationPage: FC = () => {
   return (

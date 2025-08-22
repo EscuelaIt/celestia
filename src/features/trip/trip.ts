@@ -1,4 +1,4 @@
-import type { Destination } from '@/features/destination/destination'
+import type { Destination } from '@/features/destination/domain/destination'
 import type { ShipType } from '@/features/trip/ship-type'
 
 export interface Trip {
