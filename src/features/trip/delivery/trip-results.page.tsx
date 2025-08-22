@@ -1,11 +1,11 @@
 import { type FC, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import type { Trip } from '@/features/trip/trip'
+import type { Trip } from '@/features/trip/domain/trip'
 import { calculateTripCmd, useCaseService } from '@/core/container/container'
 import { SpaceBackground } from '@/components/space-background'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import type { CalculateTrip } from '@/features/trip/calculate-trip'
+import type { CalculateTrip } from '@/features/trip/domain/calculate-trip'
 
 export const TripResultsPage: FC<{ calculateTrip: CalculateTrip }> = ({ calculateTrip }) => {
   const router = useRouter()
