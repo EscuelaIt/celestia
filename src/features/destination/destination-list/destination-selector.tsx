@@ -13,22 +13,14 @@ import type { ShipType } from '@/features/trip/ship-type'
 export function DestinationSelector() {
   const router = useRouter()
   const [destinations, setDestinations] = useState<Destination[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
   const [showAddForm, setShowAddForm] = useState(false)
 
   useEffect(() => {
     const fetchDestinations = async () => {
-      try {
-        const destinations = await useCaseService.execute(getDestinationsQry)
-        setDestinations(destinations)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setLoading(false)
-      }
+      const destinations = await useCaseService.execute(getDestinationsQry)
+      setDestinations(destinations)
     }
 
     fetchDestinations()
@@ -43,45 +35,12 @@ export function DestinationSelector() {
 
   const handleDestinationAdded = async () => {
     setShowAddForm(false)
-    setLoading(true)
-    // Refresh destinations list
-    try {
-      const response = await fetch('/api/destinations')
-      if (response.ok) {
-        const data = await response.json()
-        setDestinations(data)
-      }
-    } catch (err) {
-      console.error('Failed to refresh destinations:', err)
-    } finally {
-      setLoading(false)
-    }
+    const destinations = await useCaseService.execute(getDestinationsQry)
+    setDestinations(destinations)
   }
 
   const handleCancelAdd = () => {
     setShowAddForm(false)
-  }
-
-  if (loading) {
-    return (
-      <div className="space-y-6">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading destinations...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4 text-destructive">Error</h2>
-          <p className="text-muted-foreground">{error}</p>
-        </div>
-      </div>
-    )
   }
 
   if (showAddForm) {

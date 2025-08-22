@@ -1,6 +1,7 @@
 import type { CalculateTrip } from '@/features/trip/calculate-trip'
 import type { Trip } from '@/features/trip/trip'
 import type { Command } from '@/core/use-cases/command'
+import { CalculateTripError } from '@/features/trip/calculate-trip.error'
 
 export class CalculateTripCmd implements Command<CalculateTrip, Trip> {
   async handle(calculateTrip: CalculateTrip): Promise<Trip> {
@@ -16,7 +17,7 @@ export class CalculateTripCmd implements Command<CalculateTrip, Trip> {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to calculate trip')
+      throw new CalculateTripError()
     }
 
     const data = await response.json()

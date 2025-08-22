@@ -10,21 +10,13 @@ import type { CalculateTrip } from '@/features/trip/calculate-trip'
 export const TripResultsPage: FC<{ calculateTrip: CalculateTrip }> = ({ calculateTrip }) => {
   const router = useRouter()
   const [tripData, setTripData] = useState<Trip | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   const { destinationId, shipType } = calculateTrip
 
   useEffect(() => {
     const fetchTripData = async () => {
-      try {
-        const trip = await useCaseService.execute(calculateTripCmd, { destinationId, shipType })
-        setTripData(trip)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setLoading(false)
-      }
+      const trip = await useCaseService.execute(calculateTripCmd, { destinationId, shipType })
+      setTripData(trip)
     }
 
     if (destinationId && shipType) {
@@ -42,28 +34,13 @@ export const TripResultsPage: FC<{ calculateTrip: CalculateTrip }> = ({ calculat
     router.push('/')
   }
 
-  if (loading) {
+  if (!tripData) {
     return (
       <div className="min-h-screen relative overflow-hidden">
         <SpaceBackground />
         <div className="relative z-10 container mx-auto px-4 py-8 flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Calculating trip...</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (error || !tripData) {
-    return (
-      <div className="min-h-screen relative overflow-hidden">
-        <SpaceBackground />
-        <div className="relative z-10 container mx-auto px-4 py-8 flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4 text-destructive">Error</h2>
-            <p className="text-muted-foreground mb-4">{error || 'Failed to load trip data'}</p>
+            <h2 className="text-2xl font-bold mb-4 text-destructive">No trip data</h2>
             <button
               onClick={handleNewTrip}
               className="px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-medium transition-all duration-300 hover:scale-105"

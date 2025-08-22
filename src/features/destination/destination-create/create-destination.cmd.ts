@@ -1,5 +1,6 @@
 import type { CreateDestination } from '@/features/destination/destination-create/create-destination'
 import type { Command } from '@/core/use-cases/command'
+import { CreateDestinationError } from '@/features/destination/destination-create/create-destination.error'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {
   async handle(createDestination: CreateDestination): Promise<void> {
@@ -13,7 +14,7 @@ export class CreateDestinationCmd implements Command<CreateDestination> {
 
     if (!response.ok) {
       const errorData = await response.json()
-      throw new Error(errorData.error || 'Failed to add destination')
+      throw new CreateDestinationError(errorData)
     }
   }
 }
