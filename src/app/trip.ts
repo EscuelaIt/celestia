@@ -1,5 +1,6 @@
 import type { Destination } from '@/app/destination'
-import type { ShipType } from '@/app/calculate-trip.use-case'
+
+import type { ShipType } from '@/app/ship-type'
 
 export interface Trip {
   destination: Destination

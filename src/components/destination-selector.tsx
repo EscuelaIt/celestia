@@ -8,7 +8,8 @@ import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/components/add-destination-form'
 import type { Destination } from '@/app/destination'
 import { getDestinationsUseCase } from '@/app/container'
-import type { ShipType } from '@/app/calculate-trip.use-case'
+
+import type { ShipType } from '@/app/ship-type'
 
 export function DestinationSelector() {
   const router = useRouter()
