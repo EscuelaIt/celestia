@@ -1,5 +1,5 @@
 import type { Destination } from '@/features/destination/destination'
-import type { Query } from '@/use-cases/query'
+import type { Query } from '@/core/use-cases/query'
 
 export class GetDestinationsQry implements Query<Destination[]> {
   async handle(): Promise<Destination[]> {

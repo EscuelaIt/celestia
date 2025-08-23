@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/core/components/card'
+import { Button } from '@/core/components/button'
+import { Badge } from '@/core/components/badge'
 import { AddDestinationForm } from '@/features/destination/add-destination-form'
 import type { Destination } from '@/features/destination/destination'
-import { getDestinationsQry, useCaseService } from '@/dependency-injection/container'
+import { getDestinationsQry, useCaseService } from '@/core/dependency-injection/container'
 
 import type { ShipType } from '@/features/trip/ship-type'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { SpaceBackground } from '@/components/space-background'
+import { SpaceBackground } from '@/core/components/space-background'
 import { DestinationSelector } from '@/features/destination/destination-selector'
 
 export default function CelestiaApp() {

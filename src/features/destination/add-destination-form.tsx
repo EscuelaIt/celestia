@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { createDestinationCmd, useCaseService } from '@/dependency-injection/container'
+import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/card'
+import { Button } from '@/core/components/button'
+import { Input } from '@/core/components/input'
+import { Textarea } from '@/core/components/textarea'
+import { Label } from '@/core/components/label'
+import { createDestinationCmd, useCaseService } from '@/core/dependency-injection/container'
 
 interface AddDestinationFormProps {
   onDestinationAdded: () => void

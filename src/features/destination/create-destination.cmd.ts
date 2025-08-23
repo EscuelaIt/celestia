@@ -1,5 +1,5 @@
 import type { CreateDestination } from '@/features/destination/create-destination'
-import type { Command } from '@/use-cases/command'
+import type { Command } from '@/core/use-cases/command'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {
   async handle(createDestination: CreateDestination): Promise<void> {
