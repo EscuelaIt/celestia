@@ -3,7 +3,7 @@ import type { Trip } from '@/app/trip'
 import type { Command } from '@/app/command'
 
 export class CalculateTripCmd implements Command<CalculateTrip, Trip> {
-  async execute({ destinationId, shipType }: CalculateTrip): Promise<Trip> {
+  async handle({ destinationId, shipType }: CalculateTrip): Promise<Trip> {
     const response = await fetch('/api/calculate-trip', {
       method: 'POST',
       headers: {
