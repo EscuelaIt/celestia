@@ -10,9 +10,7 @@ export class UseCaseService {
     let next = new UseCaseHandler(useCase, new EmptyMiddleware())
 
     for (let i = this.middlewares.length - 1; i >= 0; i--) {
-      const currentMiddleware = this.middlewares[i]!
-      const previous = next
-      next = new UseCaseHandler(previous.useCase, currentMiddleware)
+      next = new UseCaseHandler(next, this.middlewares[i]!)
     }
 
     return next.handle(params) as Promise<Out>
