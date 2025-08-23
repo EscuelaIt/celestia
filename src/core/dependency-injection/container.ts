@@ -2,8 +2,9 @@ import { CreateDestinationCmd } from '@/features/destination/destination-create/
 import { GetDestinationsQry } from '@/features/destination/destination-list/get-destinations.qry'
 import { CalculateTripCmd } from '@/features/trip/calculate-trip.cmd'
 import { UseCaseService } from '@/core/use-cases/use-case-service'
+import { EmptyMiddleware } from '@/core/middlewares/empty.middleware'
 
 export const createDestinationCmd = new CreateDestinationCmd()
 export const getDestinationsQry = new GetDestinationsQry()
 export const calculateTripCmd = new CalculateTripCmd()
-export const useCaseService = new UseCaseService()
+export const useCaseService = new UseCaseService([new EmptyMiddleware()])

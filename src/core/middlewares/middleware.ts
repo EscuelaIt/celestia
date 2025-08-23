@@ -1,5 +1,5 @@
 import type { UseCase } from '@/core/use-cases/use-case'
 
 export interface Middleware {
-  next(params: unknown, useCase: UseCase<unknown, unknown>): Promise<unknown>
+  intercept(params: unknown, useCase: UseCase<unknown, unknown>): Promise<unknown>
 }

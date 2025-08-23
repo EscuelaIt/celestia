@@ -8,6 +8,6 @@ export class UseCaseHandler implements UseCase<unknown, unknown> {
   ) {}
 
   async handle(params: unknown): Promise<unknown> {
-    return this.middleware.next(params, this.useCase)
+    return this.middleware.intercept(params, this.useCase)
   }
 }
