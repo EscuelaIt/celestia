@@ -2,11 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 import { promises as fs } from 'fs'
 import type { Destination } from '@/app/destination'
-import type { ShipType, Trip } from '@/app/calculate-trip.use-case'
+import type { ShipType } from '@/app/calculate-trip.use-case'
+import type { Id } from '@/app/id'
+import type { Trip } from '@/app/trip'
 
 export async function POST(request: NextRequest) {
   try {
-    const { destinationId, shipType }: { destinationId: string; shipType: ShipType } = await request.json()
+    const { destinationId, shipType }: { destinationId: Id; shipType: ShipType } = await request.json()
 
     if (!destinationId || !shipType) {
       return NextResponse.json({ error: 'destinationId and shipType are required' }, { status: 400 })

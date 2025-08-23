@@ -1,10 +1,3 @@
-export interface CreateDestination {
-  name: string
-  distance: number
-  description: string
-  travelTime: {
-    classic: number
-    advanced: number
-  }
-  emoji: string
-}
+import type { Destination } from '@/app/destination'
+
+export type CreateDestination = Omit<Destination, 'id'>

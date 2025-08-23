@@ -1,5 +1,7 @@
+import type { Id } from '@/app/id'
+
 export interface Destination {
-  id: string
+  id: Id
   name: string
   distance: number
   description: string

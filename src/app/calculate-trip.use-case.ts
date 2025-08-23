@@ -1,19 +1,8 @@
 import type { UseCase } from '@/app/use-case'
-import type { Destination } from '@/app/destination'
+import type { CalculateTrip } from '@/app/calculate-trip'
+import type { Trip } from '@/app/trip'
 
 export type ShipType = 'classic' | 'advanced'
-
-export interface CalculateTrip {
-  destinationId: string
-  shipType: ShipType
-}
-
-export interface Trip {
-  destination: Destination
-  shipType: ShipType
-  travelTime: number
-  averageSpeed: number
-}
 
 export class CalculateTripUseCase implements UseCase<CalculateTrip, Trip> {
   async execute({ destinationId, shipType }: CalculateTrip): Promise<Trip> {

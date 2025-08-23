@@ -5,8 +5,9 @@ import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { SpaceBackground } from '@/components/space-background'
-import type { ShipType, Trip } from '@/app/calculate-trip.use-case'
+import type { ShipType } from '@/app/calculate-trip.use-case'
 import { calculateTripUseCase } from '@/app/container'
+import type { Trip } from '@/app/trip'
 
 export default function TripResultsPage() {
   const params = useParams()
