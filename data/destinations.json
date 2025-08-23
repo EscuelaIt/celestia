@@ -44,10 +44,10 @@
     "emoji": "🧊"
   },
   {
-    "id": "testplanet1755969618068",
-    "name": "TestPlanet1755969618068",
+    "id": "testplanet1755971736800",
+    "name": "TestPlanet1755971736800",
     "distance": 3000,
-    "description": "Test planet created at 1755969618068",
+    "description": "Test planet created at 1755971736800",
     "travelTime": {
       "classic": 800,
       "advanced": 400

@@ -8,12 +8,12 @@ import { Textarea } from '@/core/components/ui/textarea'
 import { Label } from '@/core/components/ui/label'
 import { createDestinationCmd, useCaseService } from '@/core/dependency-injection/container'
 
-interface AddDestinationFormProps {
-  onDestinationAdded: () => void
+interface CreateDestinationFormProps {
+  onDestinationCreated: () => void
   onCancel: () => void
 }
 
-export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinationFormProps) {
+export function DestinationCreateForm({ onDestinationCreated, onCancel }: CreateDestinationFormProps) {
   const [formData, setFormData] = useState({
     name: '',
     distance: '',
@@ -81,7 +81,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
 
       await useCaseService.execute(createDestinationCmd, newDestination)
 
-      onDestinationAdded()
+      onDestinationCreated()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
@@ -93,7 +93,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
     <Card className="bg-card/80 backdrop-blur-sm">
       <CardHeader>
         <CardTitle className="text-xl flex items-center gap-2">
-          <span className="text-white">/</span>Add New Destination
+          <span className="text-white">/</span>Create New Destination
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -183,7 +183,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
               disabled={loading}
               className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1"
             >
-              {loading ? 'Adding...' : 'Add Destination'}
+              {loading ? 'Creating...' : 'Create Destination'}
             </Button>
             <Button type="button" variant="outline" onClick={onCancel} disabled={loading} className="flex-1">
               Cancel

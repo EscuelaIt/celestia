@@ -55,10 +55,10 @@ test.describe('Destinations', () => {
     await expect(page.locator('[data-testid="destination-card"]').first()).toBeVisible({ timeout: 10000 })
 
     // Click Add New Destination button
-    await page.locator('button', { hasText: 'Add New Destination' }).click()
+    await page.locator('button', { hasText: 'Create New Destination' }).click()
 
     // Check add destination form is displayed
-    await expect(page.locator('text=/Add New Destination')).toBeVisible()
+    await expect(page.locator('text=/Create New Destination')).toBeVisible()
 
     // Create unique destination name using timestamp to ensure idempotency
     const timestamp = Date.now()
@@ -78,7 +78,7 @@ test.describe('Destinations', () => {
     // Should return to destinations list
     await expect(page.locator('text=/Select Destination')).toBeVisible({ timeout: 10000 })
 
-    // Check that the new destination was added to the list
+    // Check that the new destination was created
     await expect(page.locator(`text=${uniqueName}`)).toBeVisible()
     await expect(page.locator(`text=Test planet created at ${timestamp}`)).toBeVisible()
     await expect(page.locator('text=3000 million km')).toBeVisible()
