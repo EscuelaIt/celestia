@@ -1,6 +1,6 @@
-import type { CalculateTrip } from '@/app/calculate-trip'
-import type { Trip } from '@/app/trip'
-import type { Command } from '@/app/command'
+import type { CalculateTrip } from '@/models/calculate-trip'
+import type { Trip } from '@/models/trip'
+import type { Command } from '@/use-cases/command'
 
 export class CalculateTripCmd implements Command<CalculateTrip, Trip> {
   async handle({ destinationId, shipType }: CalculateTrip): Promise<Trip> {

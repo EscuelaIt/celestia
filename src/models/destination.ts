@@ -1,4 +1,4 @@
-import type { Id } from '@/app/id'
+import type { Id } from '@/models/id'
 
 export interface Destination {
   id: Id

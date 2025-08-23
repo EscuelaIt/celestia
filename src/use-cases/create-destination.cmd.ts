@@ -1,5 +1,5 @@
-import type { CreateDestination } from '@/app/create-destination'
-import type { Command } from '@/app/command'
+import type { CreateDestination } from '@/models/create-destination'
+import type { Command } from '@/use-cases/command'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {
   async handle(createDestination: CreateDestination): Promise<void> {
