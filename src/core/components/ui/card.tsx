@@ -1,4 +1,4 @@
-import { cn } from '@/core/styles/classnames'
+import { cn } from '@/core/lib/utils'
 import type { ComponentProps } from 'react'
 
 function Card({ className, ...props }: ComponentProps<'div'>) {

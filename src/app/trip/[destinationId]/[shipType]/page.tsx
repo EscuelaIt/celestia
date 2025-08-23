@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/card'
-import { Badge } from '@/core/components/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/ui/card'
+import { Badge } from '@/core/components/ui/badge'
 import { SpaceBackground } from '@/core/components/space-background'
 import { calculateTripCmd, useCaseService } from '@/core/dependency-injection/container'
 import type { Trip } from '@/features/trip/trip'
