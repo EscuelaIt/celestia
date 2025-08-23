@@ -5,45 +5,24 @@ import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { SpaceBackground } from '@/components/space-background'
-import type { Destination } from '@/app/destination'
-
-interface TripCalculation {
-  destination: Destination
-  shipType: 'classic' | 'advanced'
-  travelTime: number
-  averageSpeed: number
-}
+import type { ShipType, Trip } from '@/app/calculate-trip.use-case'
+import { calculateTripUseCase } from '@/app/container'
 
 export default function TripResultsPage() {
   const params = useParams()
   const router = useRouter()
-  const [tripData, setTripData] = useState<TripCalculation | null>(null)
+  const [tripData, setTripData] = useState<Trip | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const destinationId = params['destinationId'] as string
-  const shipType = params['shipType'] as 'classic' | 'advanced'
+  const shipType = params['shipType'] as ShipType
 
   useEffect(() => {
     const fetchTripData = async () => {
       try {
-        const response = await fetch('/api/calculate-trip', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            destinationId,
-            shipType,
-          }),
-        })
-
-        if (!response.ok) {
-          throw new Error('Failed to calculate trip')
-        }
-
-        const data = await response.json()
-        setTripData(data)
+        const trip = await calculateTripUseCase.execute({ destinationId, shipType })
+        setTripData(trip)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
       } finally {
