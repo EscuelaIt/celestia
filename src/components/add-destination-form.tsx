@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { createDestinationUseCase } from '@/app/container'
 
 interface AddDestinationFormProps {
   onDestinationAdded: () => void
@@ -78,18 +79,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
         emoji: formData.emoji.trim(),
       }
 
-      const response = await fetch('/api/destinations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newDestination),
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to add destination')
-      }
+      await createDestinationUseCase.execute(newDestination)
 
       onDestinationAdded()
     } catch (err) {
