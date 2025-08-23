@@ -1,8 +1,8 @@
 import { SpaceBackground } from '@/core/components/space-background'
 import { DestinationSelector } from '@/features/destination/destination-list/destination-selector'
-import type { NextPage } from 'next'
+import type { FC } from 'react'
 
-export const DestinationListPage: NextPage = () => {
+export const DestinationListPage: FC = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <SpaceBackground />

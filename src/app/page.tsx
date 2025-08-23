@@ -1,5 +1,5 @@
 import { DestinationListPage } from '@/features/destination/destination-list/destination-list-page'
+import type { NextPage } from 'next'
 
-export default function Page() {
-  return <DestinationListPage />
-}
+const Page: NextPage = () => <DestinationListPage />
+export default Page
