@@ -1,5 +1,5 @@
-import type { CalculateTrip } from '@/models/calculate-trip'
-import type { Trip } from '@/models/trip'
+import type { CalculateTrip } from '@/features/trip/calculate-trip'
+import type { Trip } from '@/features/trip/trip'
 import type { Command } from '@/use-cases/command'
 
 export class CalculateTripCmd implements Command<CalculateTrip, Trip> {

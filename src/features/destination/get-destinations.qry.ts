@@ -1,4 +1,4 @@
-import type { Destination } from '@/models/destination'
+import type { Destination } from '@/features/destination/destination'
 import type { Query } from '@/use-cases/query'
 
 export class GetDestinationsQry implements Query<Destination[]> {

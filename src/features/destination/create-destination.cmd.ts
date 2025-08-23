@@ -1,4 +1,4 @@
-import type { CreateDestination } from '@/models/create-destination'
+import type { CreateDestination } from '@/features/destination/create-destination'
 import type { Command } from '@/use-cases/command'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {

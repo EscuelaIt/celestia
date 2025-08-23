@@ -6,8 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { SpaceBackground } from '@/components/space-background'
 import { calculateTripCmd, useCaseService } from '@/dependency-injection/container'
-import type { Trip } from '@/models/trip'
-import type { ShipType } from '@/models/ship-type'
+import type { Trip } from '@/features/trip/trip'
+import type { ShipType } from '@/features/trip/ship-type'
 
 export default function TripResultsPage() {
   const params = useParams()

@@ -1,6 +1,6 @@
-import { CreateDestinationCmd } from '@/use-cases/create-destination.cmd'
-import { GetDestinationsQry } from '@/use-cases/get-destinations.qry'
-import { CalculateTripCmd } from '@/use-cases/calculate-trip.cmd'
+import { CreateDestinationCmd } from '@/features/destination/create-destination.cmd'
+import { GetDestinationsQry } from '@/features/destination/get-destinations.qry'
+import { CalculateTripCmd } from '@/features/trip/calculate-trip.cmd'
 import { UseCaseService } from '@/use-cases/use-case-service'
 
 export const createDestinationCmd = new CreateDestinationCmd()
