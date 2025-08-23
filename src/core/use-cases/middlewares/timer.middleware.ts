@@ -1,4 +1,4 @@
-import type { Middleware } from '@/core/middlewares/middleware'
+import type { Middleware } from '@/core/use-cases/middlewares/middleware'
 import type { UseCase } from '@/core/use-cases/use-case'
 
 const sleep = (ms: number) => new Promise<void>(r => setTimeout(r, ms))
