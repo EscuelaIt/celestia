@@ -1,18 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 import { promises as fs } from 'fs'
-
-interface Destination {
-  id: string
-  name: string
-  distance: number
-  description: string
-  travelTime: {
-    classic: number
-    advanced: number
-  }
-  emoji: string
-}
+import type { Destination } from '@/app/destination'
 
 interface TripCalculation {
   destination: Destination

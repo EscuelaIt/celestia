@@ -1,23 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/components/add-destination-form'
-
-interface Destination {
-  id: string
-  name: string
-  distance: number // in million km
-  description: string
-  travelTime: {
-    classic: number // in days
-    advanced: number // in days
-  }
-  emoji: string
-}
+import type { Destination } from '@/app/destination'
+import { getDestinationsUseCase } from '@/app/container'
 
 export function DestinationSelector() {
   const router = useRouter()
@@ -31,12 +21,8 @@ export function DestinationSelector() {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const response = await fetch('/api/destinations')
-        if (!response.ok) {
-          throw new Error('Failed to fetch destinations')
-        }
-        const data = await response.json()
-        setDestinations(data)
+        const destinations = await getDestinationsUseCase.execute()
+        setDestinations(destinations)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
       } finally {

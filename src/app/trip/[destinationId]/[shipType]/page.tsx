@@ -5,18 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { SpaceBackground } from '@/components/space-background'
-
-interface Destination {
-  id: string
-  name: string
-  distance: number
-  description: string
-  travelTime: {
-    classic: number
-    advanced: number
-  }
-  emoji: string
-}
+import type { Destination } from '@/app/destination'
 
 interface TripCalculation {
   destination: Destination
