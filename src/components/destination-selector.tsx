@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddDestinationForm } from '@/components/add-destination-form'
 import type { Destination } from '@/app/destination'
-import { getDestinationsUseCase } from '@/app/container'
+import { getDestinationsQry, useCaseService } from '@/app/container'
 
 import type { ShipType } from '@/app/ship-type'
 
@@ -23,7 +23,7 @@ export function DestinationSelector() {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const destinations = await getDestinationsUseCase.execute()
+        const destinations = await useCaseService.execute(getDestinationsQry)
         setDestinations(destinations)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
@@ -47,11 +47,8 @@ export function DestinationSelector() {
     setLoading(true)
     // Refresh destinations list
     try {
-      const response = await fetch('/api/destinations')
-      if (response.ok) {
-        const data = await response.json()
-        setDestinations(data)
-      }
+      const destinations = await useCaseService.execute(getDestinationsQry)
+      setDestinations(destinations)
     } catch (err) {
       console.error('Failed to refresh destinations:', err)
     } finally {
