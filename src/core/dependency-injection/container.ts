@@ -8,9 +8,11 @@ import { TimerMiddleware } from '@/core/use-cases/middlewares/timer.middleware'
 import { TimeoutMiddleware } from '@/core/use-cases/middlewares/timeout.middleware'
 import { ErrorMiddleware } from '@/core/use-cases/middlewares/error.middleware'
 import { EventEmitter } from '@/core/event-emitter/event-emitter'
+import { DestinationApiRepository } from '@/features/destination/destination.api-repository'
 
+export const destinationApiRepository = new DestinationApiRepository()
 export const createDestinationCmd = new CreateDestinationCmd()
-export const getDestinationsQry = new GetDestinationsQry()
+export const getDestinationsQry = new GetDestinationsQry(destinationApiRepository)
 export const calculateTripCmd = new CalculateTripCmd()
 export const eventEmitter = new EventEmitter()
 
