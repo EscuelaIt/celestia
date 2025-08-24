@@ -1,25 +1,15 @@
 import type { CalculateTrip } from '@/features/trip/calculate-trip'
 import type { Trip } from '@/features/trip/trip'
 import type { TripRepository } from '@/features/trip/trip.repository'
+import type { HttpClient } from '@/core/http-client/http-client'
 
 export class TripApiRepository implements TripRepository {
+  constructor(private readonly httpClient: HttpClient) {}
+
   async calculateTrip({ destinationId, shipType }: CalculateTrip): Promise<Trip> {
-    const response = await fetch('/api/calculate-trip', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        destinationId,
-        shipType,
-      }),
+    return this.httpClient.post<CalculateTrip, Trip>('calculate-trip', {
+      destinationId,
+      shipType,
     })
-
-    if (!response.ok) {
-      throw new Error('Failed to calculate trip')
-    }
-
-    const data = (await response.json()) as Trip
-    return data
   }
 }

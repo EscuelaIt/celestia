@@ -10,9 +10,11 @@ import { ErrorMiddleware } from '@/core/use-cases/middlewares/error.middleware'
 import { EventEmitter } from '@/core/event-emitter/event-emitter'
 import { DestinationApiRepository } from '@/features/destination/destination.api-repository'
 import { TripApiRepository } from '@/features/trip/trip.api-repository'
+import { HttpClient } from '@/core/http-client/http-client'
 
-export const destinationApiRepository = new DestinationApiRepository()
-export const tripApiRepository = new TripApiRepository()
+export const httpClient = new HttpClient(process.env['NEXT_PUBLIC_BASE_API_URL']!)
+export const destinationApiRepository = new DestinationApiRepository(httpClient)
+export const tripApiRepository = new TripApiRepository(httpClient)
 
 export const getDestinationsQry = new GetDestinationsQry(destinationApiRepository)
 
