@@ -7,13 +7,15 @@ import { LoggerMiddleware } from '@/core/use-cases/middlewares/logger.middleware
 import { TimerMiddleware } from '@/core/use-cases/middlewares/timer.middleware'
 import { TimeoutMiddleware } from '@/core/use-cases/middlewares/timeout.middleware'
 import { ErrorMiddleware } from '@/core/use-cases/middlewares/error.middleware'
+import { EventEmitter } from '@/core/event-emitter/event-emitter'
 
 export const createDestinationCmd = new CreateDestinationCmd()
 export const getDestinationsQry = new GetDestinationsQry()
 export const calculateTripCmd = new CalculateTripCmd()
+export const eventEmitter = new EventEmitter()
 
 const middlewaresProduction = [new TimeoutMiddleware(500), new TimerMiddleware(), new EmptyMiddleware()]
-const middlewaresDevelopment = [new ErrorMiddleware(), new LoggerMiddleware(), new EmptyMiddleware()]
+const middlewaresDevelopment = [new ErrorMiddleware(eventEmitter), new LoggerMiddleware(), new EmptyMiddleware()]
 
 export const useCaseService = new UseCaseService(
   process.env.NODE_ENV === 'development' ? middlewaresDevelopment : middlewaresProduction,
