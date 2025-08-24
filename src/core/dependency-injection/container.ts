@@ -11,8 +11,10 @@ import { EventEmitter } from '@/core/event-emitter/event-emitter'
 import { DestinationApiRepository } from '@/features/destination/destination.api-repository'
 
 export const destinationApiRepository = new DestinationApiRepository()
-export const createDestinationCmd = new CreateDestinationCmd()
+
 export const getDestinationsQry = new GetDestinationsQry(destinationApiRepository)
+
+export const createDestinationCmd = new CreateDestinationCmd(destinationApiRepository)
 export const calculateTripCmd = new CalculateTripCmd()
 export const eventEmitter = new EventEmitter()
 

@@ -1,19 +1,11 @@
 import type { CreateDestination } from '@/features/destination/destination-create/create-destination'
 import type { Command } from '@/core/use-cases/command'
+import type { DestinationRepository } from '@/features/destination/destination.repository'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {
-  async handle(createDestination: CreateDestination): Promise<void> {
-    const response = await fetch('/api/destinations', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(createDestination),
-    })
+  constructor(private readonly destinationRepository: DestinationRepository) {}
 
-    if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(errorData.error || 'Failed to create destination')
-    }
+  async handle(createDestination: CreateDestination): Promise<void> {
+    return this.destinationRepository.create(createDestination)
   }
 }
