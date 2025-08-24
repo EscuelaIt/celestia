@@ -9,13 +9,15 @@ import { TimeoutMiddleware } from '@/core/use-cases/middlewares/timeout.middlewa
 import { ErrorMiddleware } from '@/core/use-cases/middlewares/error.middleware'
 import { EventEmitter } from '@/core/event-emitter/event-emitter'
 import { DestinationApiRepository } from '@/features/destination/destination.api-repository'
+import { TripApiRepository } from '@/features/trip/trip.api-repository'
 
 export const destinationApiRepository = new DestinationApiRepository()
+export const tripApiRepository = new TripApiRepository()
 
 export const getDestinationsQry = new GetDestinationsQry(destinationApiRepository)
 
 export const createDestinationCmd = new CreateDestinationCmd(destinationApiRepository)
-export const calculateTripCmd = new CalculateTripCmd()
+export const calculateTripCmd = new CalculateTripCmd(tripApiRepository)
 export const eventEmitter = new EventEmitter()
 
 const middlewaresProduction = [new TimeoutMiddleware(500), new TimerMiddleware(), new EmptyMiddleware()]
