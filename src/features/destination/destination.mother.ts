@@ -1,4 +1,4 @@
-import type { Destination } from '@/features/destination/destination'
+import type { Destination } from '@/features/destination/domain/destination'
 
 export class DestinationMother {
   static europe(): Destination {

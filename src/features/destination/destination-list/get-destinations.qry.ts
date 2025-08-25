@@ -1,7 +1,7 @@
-import type { Destination } from '@/features/destination/destination'
+import type { Destination } from '@/features/destination/domain/destination'
 import type { Query } from '@/core/use-cases/query'
-import type { DestinationRepository } from '@/features/destination/destination.repository'
-import { DestinationOrderer } from '@/features/destination/destination-list/destination-orderer'
+import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
+import { DestinationOrderer } from '@/features/destination/destination-list/domain/destination-orderer'
 
 export class GetDestinationsQry implements Query<Destination[]> {
   constructor(

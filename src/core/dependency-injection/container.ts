@@ -9,7 +9,7 @@ import { EventEmitter } from '@/core/event-emitter/event-emitter'
 import { DestinationApiRepository } from '@/features/destination/destination.api-repository'
 import { TripApiRepository } from '@/features/trip/trip.api-repository'
 import { HttpClient } from '@/core/http-client/http-client'
-import { DestinationOrderer } from '@/features/destination/destination-list/destination-orderer'
+import { DestinationOrderer } from '@/features/destination/destination-list/domain/destination-orderer'
 import { DateTransformer } from '@/features/destination/date.transformer'
 
 export const httpClient = new HttpClient(process.env['NEXT_PUBLIC_BASE_API_URL']!)

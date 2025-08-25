@@ -6,10 +6,10 @@ import { Card, CardContent } from '@/core/components/ui/card'
 import { Button } from '@/core/components/ui/button'
 import { Badge } from '@/core/components/ui/badge'
 import { DestinationCreateForm } from '@/features/destination/destination-create/destination-create-form'
-import type { Destination } from '@/features/destination/destination'
+import type { Destination } from '@/features/destination/domain/destination'
 import { getDestinationsQry, useCaseService } from '@/core/dependency-injection/container'
 
-import type { ShipType } from '@/features/trip/ship-type'
+import type { ShipType } from '@/features/trip/domain/ship-type'
 
 export function DestinationSelector() {
   const router = useRouter()

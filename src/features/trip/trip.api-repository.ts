@@ -1,6 +1,6 @@
-import type { CalculateTrip } from '@/features/trip/calculate-trip'
-import type { Trip } from '@/features/trip/trip'
-import type { TripRepository } from '@/features/trip/trip.repository'
+import type { CalculateTrip } from '@/features/trip/domain/calculate-trip'
+import type { Trip } from '@/features/trip/domain/trip'
+import type { TripRepository } from '@/features/trip/domain/trip.repository'
 import type { HttpClient } from '@/core/http-client/http-client'
 
 export class TripApiRepository implements TripRepository {

@@ -1,7 +1,7 @@
-import type { Destination } from '@/features/destination/destination'
-import type { DestinationRepository } from '@/features/destination/destination.repository'
+import type { Destination } from '@/features/destination/domain/destination'
+import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
 import { DestinationMother } from '@/features/destination/destination.mother'
-import type { CreateDestination } from '@/features/destination/destination-create/create-destination'
+import type { CreateDestination } from '@/features/destination/destination-create/domain/create-destination'
 
 export class DestinationInMemoryRepository implements DestinationRepository {
   data = [DestinationMother.europe()]

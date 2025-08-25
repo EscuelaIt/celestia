@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { GetDestinationsQry } from './get-destinations.qry'
-import type { DestinationRepository } from '@/features/destination/destination.repository'
+import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
 import { DestinationMother } from '@/features/destination/destination.mother'
 import { instance, mock, when } from '@typestrong/ts-mockito'
-import { DestinationOrderer } from '@/features/destination/destination-list/destination-orderer'
+import { DestinationOrderer } from '@/features/destination/destination-list/domain/destination-orderer'
 
 describe('GetDestinationsQry', () => {
   it('should get destinations', async () => {
