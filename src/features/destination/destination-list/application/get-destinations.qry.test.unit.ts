@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { GetDestinationsQry } from './get-destinations.qry'
 import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
-import { DestinationMother } from '@/features/destination/destination.mother'
+import { DestinationMother } from '@/features/destination/tests/destination.mother'
 import { instance, mock, when } from '@typestrong/ts-mockito'
 import { DestinationOrderer } from '@/features/destination/destination-list/domain/destination-orderer'
 

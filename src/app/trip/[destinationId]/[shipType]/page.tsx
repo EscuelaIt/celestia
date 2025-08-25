@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import type { ShipType } from '@/features/trip/domain/ship-type'
 import type { NextPage } from 'next'
-import { TripResultsPage } from '@/features/trip/trip-results.page'
+import { TripResultsPage } from '@/features/trip/delivery/trip-results.page'
 
 const Page: NextPage = () => {
   const params = useParams()

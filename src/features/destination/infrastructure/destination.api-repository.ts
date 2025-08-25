@@ -2,8 +2,8 @@ import type { Destination } from '@/features/destination/domain/destination'
 import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
 import type { CreateDestination } from '@/features/destination/destination-create/domain/create-destination'
 import type { HttpClient } from '@/core/http-client/http-client'
-import type { DestinationDto } from '@/features/destination/destination-dto'
-import type { DateTransformer } from '@/features/destination/date.transformer'
+import type { DestinationDto } from '@/features/destination/infrastructure/destination-dto'
+import type { DateTransformer } from '@/features/destination/infrastructure/date.transformer'
 
 export class DestinationApiRepository implements DestinationRepository {
   constructor(
