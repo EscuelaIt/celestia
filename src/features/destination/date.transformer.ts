@@ -1,4 +1,4 @@
-import type { Transformer } from '@/features/destination/trasnformer'
+import type { Transformer } from '@/core/transformers/trasnformer'
 
 type Iso8601Date = string
 
