@@ -3,6 +3,7 @@ import { GetDestinationsQry } from './get-destinations.qry'
 import type { DestinationRepository } from '@/features/destination/destination.repository'
 import { DestinationMother } from '@/features/destination/destination.mother'
 import { instance, mock, when } from '@typestrong/ts-mockito'
+import { DestinationOrderer } from '@/features/destination/destination-list/destination-orderer'
 
 describe('GetDestinationsQry', () => {
   it('should get destinations', async () => {
@@ -26,7 +27,7 @@ describe('GetDestinationsQry', () => {
 
 function setup() {
   const destinationRepository = mock<DestinationRepository>()
-  const getDestinationsQry = new GetDestinationsQry(instance(destinationRepository))
+  const getDestinationsQry = new GetDestinationsQry(instance(destinationRepository), new DestinationOrderer())
 
   return { destinationRepository, getDestinationsQry }
 }
