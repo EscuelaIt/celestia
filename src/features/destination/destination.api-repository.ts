@@ -2,12 +2,22 @@ import type { Destination } from '@/features/destination/destination'
 import type { DestinationRepository } from '@/features/destination/destination.repository'
 import type { CreateDestination } from '@/features/destination/destination-create/create-destination'
 import type { HttpClient } from '@/core/http-client/http-client'
+import type { DestinationDto } from '@/features/destination/destination-dto'
+import type { DateTransformer } from '@/features/destination/date.transformer'
 
 export class DestinationApiRepository implements DestinationRepository {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly dateTransformer: DateTransformer,
+  ) {}
 
   async findAll(): Promise<Destination[]> {
-    return this.httpClient.get<Destination[]>('destinations')
+    const destinationsDtos = await this.httpClient.get<DestinationDto[]>('destinations')
+
+    return destinationsDtos.map(dto => ({
+      ...dto,
+      creationDate: this.dateTransformer.transform(dto.creationDate),
+    }))
   }
 
   async create(createDestination: CreateDestination): Promise<void> {

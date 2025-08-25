@@ -2,7 +2,7 @@
 
 import { XCircle } from 'lucide-react'
 import type { FC } from 'react'
-import { useErrorListener } from '@/core/components/use-error-listener'
+import { useErrorListener } from '@/core/hooks/use-error-listener'
 import { Alert, AlertDescription, AlertTitle } from '@/core/components/ui/alert'
 import { Button } from '@/core/components/ui/button'
 

@@ -1,9 +1,7 @@
-import type { Id } from '@/core/types/id'
-
-export interface Destination {
-  id: Id
+export interface DestinationDto {
+  id: string
   name: string
-  creationDate: Date
+  creationDate: string
   distance: number
   description: string
   travelTime: {
