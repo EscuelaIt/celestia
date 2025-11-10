@@ -1,16 +1,18 @@
-import { GetDestinationsQry } from '@/features/destination/destination-list/application/get-destinations.qry'
-import { CreateDestinationCmd } from '@/features/destination/destination-create/application/create-destination.cmd'
-import { CalculateTripCmd } from '@/features/trip/application/calculate-trip.cmd'
-import { UseCaseService } from '@/core/use-cases/use-case-service'
-import { EmptyMiddleware } from '@/core/use-cases/middlewares/empty.middleware'
-import { LogMiddleware } from '@/core/use-cases/middlewares/log.middleware'
-import { ErrorMiddleware } from '@/core/use-cases/middlewares/error.middleware'
-import { DestinationApiRepository } from '@/features/destination/infrastructure/destination.api-repository'
-import { TripApiRepository } from '@/features/trip/infrastructure/trip.api-repository'
+/**
+ * Container interface for managing all instances in the application.
+ */
+export interface Container {
+  /**
+   * Register an instance in the container with a specific key.
+   * @param key - The key to register the instance under
+   * @param instance - The instance to register
+   */
+  registerWithKey<T>(key: string, instance: T): void
 
-export const destinationApiRepository = new DestinationApiRepository()
-export const tripApiRepository = new TripApiRepository()
-export const getDestinationsQry = new GetDestinationsQry(destinationApiRepository)
-export const createDestinationCmd = new CreateDestinationCmd(destinationApiRepository)
-export const calculateTripCmd = new CalculateTripCmd(tripApiRepository)
-export const useCaseService = new UseCaseService([new EmptyMiddleware(), new ErrorMiddleware(), new LogMiddleware()])
+  /**
+   * Get an instance from the container.
+   * @param key - The key of the instance to get
+   * @returns The instance
+   */
+  get<T>(key: string): T
+}

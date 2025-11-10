@@ -1,11 +1,13 @@
 import { type FC, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Trip } from '@/features/trip/domain/trip'
-import { calculateTripCmd, useCaseService } from '@/core/container/container'
 import { SpaceBackground } from '@/components/space-background'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type { CalculateTrip } from '@/features/trip/domain/calculate-trip'
+import { CelestiaContainer } from '@/core/container/celestia-container'
+import type { UseCaseService } from '@/core/use-cases/use-case-service'
+import type { CalculateTripCmd } from '@/features/trip/application/calculate-trip.cmd'
 
 export const TripResultsPage: FC<{ calculateTrip: CalculateTrip }> = ({ calculateTrip }) => {
   const router = useRouter()
@@ -15,7 +17,9 @@ export const TripResultsPage: FC<{ calculateTrip: CalculateTrip }> = ({ calculat
 
   useEffect(() => {
     const fetchTripData = async () => {
-      const trip = await useCaseService.execute(calculateTripCmd, { destinationId, shipType })
+      const trip = await CelestiaContainer.getInstance()
+        .get<UseCaseService>('UseCaseService')
+        .execute(CelestiaContainer.getInstance().get<CalculateTripCmd>('CalculateTripCmd'), { destinationId, shipType })
       setTripData(trip)
     }
 
