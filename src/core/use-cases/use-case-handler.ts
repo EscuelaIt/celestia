@@ -1,4 +1,4 @@
-import type { UseCase } from '@/core/use-cases/use-case'
+import type { UseCase, UseCaseParams, UseCaseReturn } from '@/core/use-cases/use-case'
 import type { Middleware } from '@/core/use-cases/middlewares/middleware'
 
 export class UseCaseHandler implements UseCase {
@@ -7,8 +7,8 @@ export class UseCaseHandler implements UseCase {
     private readonly middlewares: Middleware,
   ) {}
 
-  handle(input?: unknown): Promise<unknown> {
-    return this.middlewares.intercept(input, this.useCase)
+  handle<T extends UseCase>(input?: UseCaseParams<T>): Promise<UseCaseReturn<T>> {
+    return this.middlewares.intercept(input, this.useCase) as Promise<UseCaseReturn<T>>
   }
 
   static create({ middleware, next }: { middleware: Middleware; next: UseCase }) {

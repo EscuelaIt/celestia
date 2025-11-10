@@ -6,8 +6,8 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type { CalculateTrip } from '@/features/trip/domain/calculate-trip'
 import { CelestiaContainer } from '@/core/container/celestia-container'
-import type { UseCaseService } from '@/core/use-cases/use-case-service'
-import type { CalculateTripCmd } from '@/features/trip/application/calculate-trip.cmd'
+import { UseCaseService } from '@/core/use-cases/use-case-service'
+import { CalculateTripCmd } from '@/features/trip/application/calculate-trip.cmd'
 
 export const TripResultsPage: FC<{ calculateTrip: CalculateTrip }> = ({ calculateTrip }) => {
   const router = useRouter()
@@ -17,9 +17,11 @@ export const TripResultsPage: FC<{ calculateTrip: CalculateTrip }> = ({ calculat
 
   useEffect(() => {
     const fetchTripData = async () => {
-      const trip = await CelestiaContainer.getInstance()
-        .get<UseCaseService>('UseCaseService')
-        .execute(CelestiaContainer.getInstance().get<CalculateTripCmd>('CalculateTripCmd'), { destinationId, shipType })
+      const useCaseService = CelestiaContainer.getInstance().get(UseCaseService)
+      const trip = await useCaseService.execute(CalculateTripCmd, {
+        destinationId,
+        shipType,
+      })
       setTripData(trip)
     }
 

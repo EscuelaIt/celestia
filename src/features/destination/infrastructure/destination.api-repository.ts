@@ -3,8 +3,11 @@ import type { CreateDestination } from '@/features/destination/destination-creat
 import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
 import { GetDestinationsError } from '@/features/destination/destination-list/domain/get-destinations.error'
 import { CreateDestinationError } from '@/features/destination/destination-create/domain/create-destination.error'
+import type { InjectionToken } from '@/core/container/injection-token'
 
 export class DestinationApiRepository implements DestinationRepository {
+  static readonly id: InjectionToken = Symbol('DestinationApiRepository')
+
   async findAll(): Promise<Destination[]> {
     const response = await fetch('/api/destinations')
     if (!response.ok) {
