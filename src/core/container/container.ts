@@ -1,5 +1,5 @@
 import type { InjectionToken } from '@/core/container/injection-token'
-import type { WithInjectionToken } from '@/core/container/with-injection-token'
+import type { AnyConstructor, WithInjectionToken } from '@/core/container/with-injection-token'
 
 /**
  * Container interface for managing all instances in the application.
@@ -17,6 +17,5 @@ export interface Container {
    * @param key - The class with a static injection token to get the instance
    * @returns The instance typed as the class instance
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get<C extends WithInjectionToken<abstract new (...args: any) => any>>(key: C): InstanceType<C>
+  get<C extends WithInjectionToken<AnyConstructor>>(key: C): InstanceType<C>
 }

@@ -4,7 +4,7 @@ import { UseCaseHandler } from '@/core/use-cases/use-case-handler'
 import { EmptyMiddleware } from '@/core/use-cases/middlewares/empty.middleware'
 import type { Container } from '@/core/container/container'
 import type { InjectionToken } from '@/core/container/injection-token'
-import type { WithInjectionToken } from '@/core/container/with-injection-token'
+import type { AnyConstructor, WithInjectionToken } from '@/core/container/with-injection-token'
 import type { UseCaseParams, UseCaseReturn } from '@/core/use-cases/use-case'
 
 export class UseCaseService {
@@ -15,8 +15,7 @@ export class UseCaseService {
   ) {}
 
   async execute<T extends UseCase>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    useCaseClass: WithInjectionToken<new (...args: any[]) => T>,
+    useCaseClass: WithInjectionToken<AnyConstructor<T>>,
     params?: UseCaseParams<T>,
   ): Promise<UseCaseReturn<T>> {
     const useCaseInstance = this.container.get(useCaseClass)

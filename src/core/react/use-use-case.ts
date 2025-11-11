@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { UseCase, UseCaseParams, UseCaseReturn } from '@/core/use-cases/use-case'
 import type { Container } from '@/core/container/container'
-import type { WithInjectionToken } from '@/core/container/with-injection-token'
+import type { AnyConstructor, WithInjectionToken } from '@/core/container/with-injection-token'
 import { UseCaseService } from '@/core/use-cases/use-case-service'
 
 /**
@@ -45,8 +45,7 @@ export interface UseUseCaseOptions<T extends UseCase> {
  */
 export function createUseUseCase(container: Container) {
   return function useUseCase<T extends UseCase>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    useCaseClass: WithInjectionToken<new (...args: any[]) => T>,
+    useCaseClass: WithInjectionToken<AnyConstructor<T>>,
     options: UseUseCaseOptions<T> = {},
   ): UseCaseState<T> {
     const [isLoading, setIsLoading] = useState(!!options.immediate)
@@ -60,8 +59,8 @@ export function createUseUseCase(container: Container) {
 
           const result = await useCaseService.execute(useCaseClass, params)
 
-          setData(result as UseCaseReturn<T>)
-          return result as UseCaseReturn<T>
+          setData(result)
+          return result
         } finally {
           setIsLoading(false)
         }
@@ -75,7 +74,6 @@ export function createUseUseCase(container: Container) {
     }, [])
 
     // Execute on mount if requested
-    // biome-ignore lint/correctness/useExhaustiveDependencies: We only want to run this effect once on mount
     useEffect(() => {
       if (options.immediate) {
         execute(options.defaultParams)

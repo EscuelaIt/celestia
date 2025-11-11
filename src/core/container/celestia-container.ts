@@ -9,7 +9,7 @@ import { EmptyMiddleware } from '@/core/use-cases/middlewares/empty.middleware'
 import { ErrorMiddleware } from '@/core/use-cases/middlewares/error.middleware'
 import { LogMiddleware } from '@/core/use-cases/middlewares/log.middleware'
 import type { InjectionToken } from '@/core/container/injection-token'
-import type { WithInjectionToken } from '@/core/container/with-injection-token'
+import type { AnyConstructor, WithInjectionToken } from '@/core/container/with-injection-token'
 
 // Extend globalThis to hold the singleton instance
 const globalForCelestia = globalThis as unknown as {
@@ -85,8 +85,7 @@ export class CelestiaContainer implements Container {
    * @param key - The class with a static injection token to get the instance
    * @returns The instance typed as the class instance
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get<C extends WithInjectionToken<abstract new (...args: any) => any>>(key: C): InstanceType<C> {
+  get<C extends WithInjectionToken<AnyConstructor>>(key: C): InstanceType<C> {
     const token = key.id
     if (!this.instances.has(token)) {
       throw new Error(`Instance with key '${token.toString()}' not found.`)
