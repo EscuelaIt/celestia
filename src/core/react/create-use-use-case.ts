@@ -12,7 +12,7 @@ export interface UseCaseState<T extends UseCase> {
   /** Whether the use case is currently executing */
   isLoading: boolean
   /** The data returned by the use case, if any */
-  data: UseCaseReturn<T> | null
+  data: UseCaseReturn<T> | undefined
   /** Function to execute the use case */
   execute: (params?: UseCaseParams<T>) => Promise<UseCaseReturn<T>>
   /** Reset the state to its initial values */
@@ -49,7 +49,7 @@ export function createUseUseCase(container: Container) {
     options: UseUseCaseOptions<T> = {},
   ): UseCaseState<T> {
     const [isLoading, setIsLoading] = useState(!!options.immediate)
-    const [data, setData] = useState<UseCaseReturn<T> | null>(null)
+    const [data, setData] = useState<UseCaseReturn<T> | undefined>(undefined)
 
     const execute = useCallback(
       async (params?: UseCaseParams<T>): Promise<UseCaseReturn<T>> => {
@@ -70,7 +70,7 @@ export function createUseUseCase(container: Container) {
 
     const reset = useCallback(() => {
       setIsLoading(false)
-      setData(null)
+      setData(undefined)
     }, [])
 
     // Execute on mount if requested

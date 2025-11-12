@@ -6,9 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { CelestiaContainer } from '@/core/container/celestia-container'
-import { UseCaseService } from '@/core/use-cases/use-case-service'
 import { CreateDestinationCmd } from '@/features/destination/destination-create/application/create-destination.cmd'
+import { useUseCase } from '@/core/container/use-use-case'
 
 interface AddDestinationFormProps {
   onDestinationAdded: () => void
@@ -33,6 +32,8 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
     advancedTravelTime: '',
     emoji: '',
   })
+
+  const createDestinationCmd = useUseCase(CreateDestinationCmd)
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -84,7 +85,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
       emoji: formData.emoji.trim(),
     }
 
-    await CelestiaContainer.getInstance().get(UseCaseService).execute(CreateDestinationCmd, newDestination)
+    await createDestinationCmd.execute(newDestination)
 
     onDestinationAdded()
   }
