@@ -48,36 +48,39 @@ export class CelestiaContainer implements Container {
     const createDestinationCmd = new CreateDestinationCmd(destinationApiRepository)
     const calculateTripCmd = new CalculateTripCmd(tripApiRepository)
 
-    this.registerWithKey(DestinationApiRepository.id, destinationApiRepository)
-    this.registerWithKey(TripApiRepository.id, tripApiRepository)
-    this.registerWithKey(GetDestinationsQry.id, getDestinationsQry)
-    this.registerWithKey(CreateDestinationCmd.id, createDestinationCmd)
-    this.registerWithKey(CalculateTripCmd.id, calculateTripCmd)
+    this.register(destinationApiRepository)
+    this.register(tripApiRepository)
+    this.register(getDestinationsQry)
+    this.register(createDestinationCmd)
+    this.register(calculateTripCmd)
   }
 
   /**
    * Register all middlewares, logger, event emitter, etc.
    */
   private registerArtifacts(): void {
-    // Register middlewares so they can be resolved via container.get(SomeMiddleware)
-    const empty = new EmptyMiddleware()
-    const error = new ErrorMiddleware()
-    const log = new LogMiddleware()
-    this.registerWithKey(EmptyMiddleware.id, empty)
-    this.registerWithKey(ErrorMiddleware.id, error)
-    this.registerWithKey(LogMiddleware.id, log)
+    const emptyMiddleware = new EmptyMiddleware()
+    const errorMiddleware = new ErrorMiddleware()
+    const logMiddleware = new LogMiddleware()
+    this.register(emptyMiddleware)
+    this.register(errorMiddleware)
+    this.register(logMiddleware)
 
-    const useCaseService = new UseCaseService([empty, error, log], this)
-    this.registerWithKey(UseCaseService.id, useCaseService)
+    const useCaseService = new UseCaseService([emptyMiddleware, errorMiddleware, logMiddleware], this)
+    this.register(useCaseService)
   }
 
   /**
    * Register an instance in the container with an explicit key.
-   * @param key - The key to register the instance under
    * @param instance - The instance to register
    */
-  registerWithKey<T>(key: InjectionToken, instance: T): void {
-    this.instances.set(key, instance)
+  register<Instance extends object>(instance: Instance): void {
+    const ctor = instance.constructor as WithInjectionToken<AnyConstructor>
+    if (!('id' in ctor) || typeof ctor.id !== 'symbol') {
+      const name = 'name' in ctor ? ctor.name : 'Unknown'
+      throw new Error('Missing static id in ' + name)
+    }
+    this.instances.set(ctor.id, instance)
   }
 
   /**
@@ -85,11 +88,11 @@ export class CelestiaContainer implements Container {
    * @param key - The class with a static injection token to get the instance
    * @returns The instance typed as the class instance
    */
-  get<C extends WithInjectionToken<AnyConstructor>>(key: C): InstanceType<C> {
+  get<Instance extends WithInjectionToken<AnyConstructor>>(key: Instance): InstanceType<Instance> {
     const token = key.id
     if (!this.instances.has(token)) {
       throw new Error(`Instance with key '${token.toString()}' not found.`)
     }
-    return this.instances.get(token) as InstanceType<C>
+    return this.instances.get(token) as InstanceType<Instance>
   }
 }
