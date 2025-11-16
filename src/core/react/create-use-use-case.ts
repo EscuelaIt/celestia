@@ -73,7 +73,6 @@ export function createUseUseCase(container: Container) {
       setData(undefined)
     }, [])
 
-    // Execute on mount if requested
     useEffect(() => {
       if (options.immediate) {
         execute(options.defaultParams)
