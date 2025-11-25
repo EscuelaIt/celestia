@@ -6,7 +6,7 @@ import { Button } from '@/core/components/ui/button'
 import { Input } from '@/core/components/ui/input'
 import { Textarea } from '@/core/components/ui/textarea'
 import { Label } from '@/core/components/ui/label'
-import { createDestinationCmd, useCaseService } from '@/core/dependency-injection/container'
+import { createDestinationCmd, useCaseService } from '@/core/dependency-injection/app-container'
 
 interface CreateDestinationFormProps {
   onDestinationCreated: () => void

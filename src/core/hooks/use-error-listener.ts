@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { eventEmitter } from '../dependency-injection/container'
+import { eventEmitter } from '../dependency-injection/app-container'
 import { EventType } from '../event-emitter/event-emitter'
 
 export function useErrorListener() {

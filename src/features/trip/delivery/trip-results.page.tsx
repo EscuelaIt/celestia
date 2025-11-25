@@ -1,7 +1,7 @@
 import { type FC, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Trip } from '@/features/trip/domain/trip'
-import { calculateTripCmd, useCaseService } from '@/core/dependency-injection/container'
+import { calculateTripCmd, useCaseService } from '@/core/dependency-injection/app-container'
 import { SpaceBackground } from '@/core/components/space-background'
 import { Badge } from '@/core/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/ui/card'
