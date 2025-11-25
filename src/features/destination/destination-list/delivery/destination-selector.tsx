@@ -12,6 +12,7 @@ import type { ShipType } from '@/features/trip/domain/ship-type'
 import { CelestiaContainer } from '@/core/dependency-injection/celestia-container'
 import { UseCaseService } from '@/core/use-cases/use-case-service'
 import { GetDestinationsQry } from '@/features/destination/destination-list/application/get-destinations.qry'
+import { useUseCase } from '@/core/hooks/use-use-case'
 
 export function DestinationSelector() {
   const router = useRouter()
@@ -19,8 +20,7 @@ export function DestinationSelector() {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
   const [showCreateForm, setShowCreateForm] = useState(false)
-  const useCaseService = CelestiaContainer.getInstance().get(UseCaseService)
-  const getDestinationsQry = CelestiaContainer.getInstance().get(GetDestinationsQry)
+  useUseCase()
 
   useEffect(() => {
     const fetchDestinations = async () => {
