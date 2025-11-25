@@ -19,8 +19,8 @@ export function DestinationSelector() {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
   const [showCreateForm, setShowCreateForm] = useState(false)
-  const useCaseService = CelestiaContainer.getInstance().get<UseCaseService>(UseCaseService.ID)
-  const getDestinationsQry = CelestiaContainer.getInstance().get<GetDestinationsQry>(GetDestinationsQry.ID)
+  const useCaseService = CelestiaContainer.getInstance().get(UseCaseService)
+  const getDestinationsQry = CelestiaContainer.getInstance().get(GetDestinationsQry)
 
   useEffect(() => {
     const fetchDestinations = async () => {

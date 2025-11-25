@@ -81,8 +81,8 @@ export function DestinationCreateForm({ onDestinationCreated, onCancel }: Create
         emoji: formData.emoji.trim(),
       }
 
-      const useCaseService = CelestiaContainer.getInstance().get<UseCaseService>(UseCaseService.ID)
-      const createDestinationCmd = CelestiaContainer.getInstance().get<CreateDestinationCmd>(CreateDestinationCmd.ID)
+      const useCaseService = CelestiaContainer.getInstance().get(UseCaseService)
+      const createDestinationCmd = CelestiaContainer.getInstance().get(CreateDestinationCmd)
       await useCaseService.execute(createDestinationCmd, newDestination)
 
       onDestinationCreated()

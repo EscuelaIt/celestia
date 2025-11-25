@@ -14,6 +14,8 @@ import { DateTransformer } from '@/features/destination/infrastructure/date.tran
 import type { Container } from '@/core/dependency-injection/container'
 import { type Environment, ENVIRONMENT_ID } from '../environment/environment'
 import type { InjectionToken } from '@/core/dependency-injection/injection-token'
+import type { WithInjectionToken } from '@/core/dependency-injection/with-injection-token'
+import type { AnyConstructor } from '@/core/types/any-constructor'
 
 const globalForCelestia = globalThis as unknown as {
   celestia?: Container
@@ -36,59 +38,66 @@ export class CelestiaContainer implements Container {
     this.registerUseCases()
   }
 
-  get<Instance>(key: InjectionToken): Instance {
-    const instance = this.registry.get(key)
-
-    if (instance === undefined) {
-      throw new Error(`Instance for key ${key.toString()} is missing`)
+  get<Instance extends WithInjectionToken<AnyConstructor>>(key: Instance): InstanceType<Instance> {
+    const token = key.ID
+    if (!this.registry.has(token)) {
+      throw new Error(`Instance with key '${token.toString()}' not found.`)
     }
-
-    return instance as Instance
+    return this.registry.get(token) as InstanceType<Instance>
   }
 
-  register(key: InjectionToken, instance: unknown): void {
+  register<Instance extends object>(instance: Instance): void {
+    const ctor = instance.constructor as WithInjectionToken<AnyConstructor>
+    if (!('ID' in ctor) || typeof ctor.ID !== 'symbol') {
+      const name = 'name' in ctor ? ctor.name : 'Unknown'
+      throw new Error(`Missing static ID in ${name}`)
+    }
+    this.registry.set(ctor.ID, instance)
+  }
+
+  registerWithKey<Instance>(key: InjectionToken, instance: Instance): void {
     this.registry.set(key, instance)
   }
 
   private registerArtifacts() {
     const eventEmitter = new EventEmitter()
-    this.register(EventEmitter.ID, eventEmitter)
+    this.register(eventEmitter)
     const middlewares = [new ErrorMiddleware(eventEmitter), new LoggerMiddleware(), new EmptyMiddleware()]
 
     const useCaseService = new UseCaseService(middlewares)
-    this.register(UseCaseService.ID, useCaseService)
+    this.register(useCaseService)
 
     const environment: Environment = {
       NEXT_PUBLIC_BASE_API_URL: process.env['NEXT_PUBLIC_BASE_API_URL']!,
     }
-    this.register(ENVIRONMENT_ID, environment)
+    this.registerWithKey(ENVIRONMENT_ID, environment)
 
     const httpClient = new HttpClient(environment.NEXT_PUBLIC_BASE_API_URL)
-    this.register(HttpClient.ID, httpClient)
+    this.register(httpClient)
     const dateTransformer = new DateTransformer()
-    this.register(DateTransformer.ID, dateTransformer)
+    this.register(dateTransformer)
   }
 
   private registerRepositories() {
-    const httpClient = this.get<HttpClient>(HttpClient.ID)
-    const dateTransformer = this.get<DateTransformer>(DateTransformer.ID)
+    const httpClient = this.get(HttpClient)
+    const dateTransformer = this.get(DateTransformer)
     const destinationApiRepository = new DestinationApiRepository(httpClient, dateTransformer)
-    this.register(DestinationApiRepository.ID, destinationApiRepository)
+    this.register(destinationApiRepository)
     const tripApiRepository = new TripApiRepository(httpClient)
-    this.register(TripApiRepository.ID, tripApiRepository)
+    this.register(tripApiRepository)
   }
 
   private registerUseCases() {
     const destinationOrderer = new DestinationOrderer()
-    this.register(DestinationOrderer.ID, destinationOrderer)
-    const destinationApiRepository = this.get<DestinationApiRepository>(DestinationApiRepository.ID)
+    this.register(destinationOrderer)
+    const destinationApiRepository = this.get(DestinationApiRepository)
     const getDestinationsQry = new GetDestinationsQry(destinationApiRepository, destinationOrderer)
-    this.register(GetDestinationsQry.ID, getDestinationsQry)
+    this.register(getDestinationsQry)
 
     const createDestinationCmd = new CreateDestinationCmd(destinationApiRepository)
-    this.register(CreateDestinationCmd.ID, createDestinationCmd)
-    const tripApiRepository = this.get<TripApiRepository>(TripApiRepository.ID)
+    this.register(createDestinationCmd)
+    const tripApiRepository = this.get(TripApiRepository)
     const calculateTripCmd = new CalculateTripCmd(tripApiRepository)
-    this.register(CalculateTripCmd.ID, calculateTripCmd)
+    this.register(calculateTripCmd)
   }
 }
