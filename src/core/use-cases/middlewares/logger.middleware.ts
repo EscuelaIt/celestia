@@ -1,9 +1,10 @@
 import type { Middleware } from '@/core/use-cases/middlewares/middleware'
 import type { UseCase } from '@/core/use-cases/use-case'
 import { UseCaseHandler } from '@/core/use-cases/use-case-handler'
+import type { InjectionToken } from '@/core/dependency-injection/injection-token'
 
 export class LoggerMiddleware implements Middleware {
-  static readonly ID = 'LoggerMiddleware'
+  static readonly ID: InjectionToken = Symbol('LoggerMiddleware')
 
   private getActualUseCaseName(useCase: UseCase<unknown, unknown>): string {
     if (useCase instanceof UseCaseHandler) {

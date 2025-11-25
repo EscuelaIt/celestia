@@ -1,5 +1,7 @@
+import type { InjectionToken } from '@/core/dependency-injection/injection-token'
+
 export class HttpClient {
-  static readonly ID = 'HttpClient'
+  static readonly ID: InjectionToken = Symbol('HttpClient')
 
   constructor(private readonly baseUrl: string) {}
 

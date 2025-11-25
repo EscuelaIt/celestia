@@ -2,9 +2,10 @@ import type { CalculateTrip } from '@/features/trip/domain/calculate-trip'
 import type { Trip } from '@/features/trip/domain/trip'
 import type { TripRepository } from '@/features/trip/domain/trip.repository'
 import type { HttpClient } from '@/core/http-client/http-client'
+import type { InjectionToken } from '@/core/dependency-injection/injection-token'
 
 export class TripApiRepository implements TripRepository {
-  static readonly ID = 'TripApiRepository'
+  static readonly ID: InjectionToken = Symbol('TripApiRepository')
 
   constructor(private readonly httpClient: HttpClient) {}
 

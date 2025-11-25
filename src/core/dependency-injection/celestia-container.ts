@@ -13,13 +13,14 @@ import { DestinationOrderer } from '@/features/destination/destination-list/doma
 import { DateTransformer } from '@/features/destination/infrastructure/date.transformer'
 import type { Container } from '@/core/dependency-injection/container'
 import { type Environment, ENVIRONMENT_ID } from '../environment/environment'
+import type { InjectionToken } from '@/core/dependency-injection/injection-token'
 
 const globalForCelestia = globalThis as unknown as {
   celestia?: Container
 }
 
 export class CelestiaContainer implements Container {
-  private readonly registry = new Map<string, unknown>()
+  private readonly registry = new Map<InjectionToken, unknown>()
 
   static getInstance(): Container {
     // Reuse global instance if it exists
@@ -35,7 +36,7 @@ export class CelestiaContainer implements Container {
     this.registerUseCases()
   }
 
-  get<Instance>(key: string): Instance {
+  get<Instance>(key: InjectionToken): Instance {
     const instance = this.registry.get(key)
 
     if (instance === undefined) {
@@ -45,7 +46,7 @@ export class CelestiaContainer implements Container {
     return instance as Instance
   }
 
-  register(key: string, instance: unknown): void {
+  register(key: InjectionToken, instance: unknown): void {
     this.registry.set(key, instance)
   }
 

@@ -2,9 +2,10 @@ import type { UseCase } from '@/core/use-cases/use-case'
 import type { Middleware } from '@/core/use-cases/middlewares/middleware'
 import { UseCaseHandler } from '@/core/use-cases/use-case-handler'
 import { EmptyMiddleware } from '@/core/use-cases/middlewares/empty.middleware'
+import type { InjectionToken } from '@/core/dependency-injection/injection-token'
 
 export class UseCaseService {
-  static readonly ID = 'UseCaseService'
+  static readonly ID: InjectionToken = Symbol('UseCaseService')
 
   constructor(private readonly middlewares: Middleware[]) {}
 

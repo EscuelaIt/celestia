@@ -1,3 +1,5 @@
+import type { InjectionToken } from '@/core/dependency-injection/injection-token'
+
 export enum EventType {
   ERROR = 'error',
   SUCCESS = 'success',
@@ -8,7 +10,7 @@ export enum EventType {
 type EventHandler = (data: unknown) => void
 
 export class EventEmitter {
-  static readonly ID = 'EventEmitter'
+  static readonly ID: InjectionToken = Symbol('EventEmitter')
 
   private listeners: Map<EventType, EventHandler[]> = new Map()
 

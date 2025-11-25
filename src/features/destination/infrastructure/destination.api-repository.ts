@@ -4,9 +4,10 @@ import type { CreateDestination } from '@/features/destination/destination-creat
 import type { HttpClient } from '@/core/http-client/http-client'
 import type { DestinationDto } from '@/features/destination/infrastructure/destination-dto'
 import type { DateTransformer } from '@/features/destination/infrastructure/date.transformer'
+import type { InjectionToken } from '@/core/dependency-injection/injection-token'
 
 export class DestinationApiRepository implements DestinationRepository {
-  static readonly ID = 'DestinationApiRepository'
+  static readonly ID: InjectionToken = Symbol('DestinationApiRepository')
 
   constructor(
     private readonly httpClient: HttpClient,
