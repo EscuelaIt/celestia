@@ -8,6 +8,8 @@ export enum EventType {
 type EventHandler = (data: unknown) => void
 
 export class EventEmitter {
+  static readonly ID = 'EventEmitter'
+
   private listeners: Map<EventType, EventHandler[]> = new Map()
 
   subscribe(event: EventType, handler: EventHandler): () => void {

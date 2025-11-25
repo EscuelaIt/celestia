@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { eventEmitter } from '../dependency-injection/app-container'
-import { EventType } from '../event-emitter/event-emitter'
+import { EventEmitter, EventType } from '../event-emitter/event-emitter'
+import { CelestiaContainer } from '@/core/dependency-injection/celestia-container'
 
 export function useErrorListener() {
   const [error, setError] = useState<Error | null>(null)
+  const eventEmitter = CelestiaContainer.getInstance().get<EventEmitter>(EventEmitter.ID)
 
   useEffect(() => {
     const unsubscribe = eventEmitter.subscribe(EventType.ERROR, data => {

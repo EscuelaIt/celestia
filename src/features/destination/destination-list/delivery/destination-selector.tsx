@@ -7,9 +7,11 @@ import { Button } from '@/core/components/ui/button'
 import { Badge } from '@/core/components/ui/badge'
 import { DestinationCreateForm } from '@/features/destination/destination-create/delivery/destination-create-form'
 import type { Destination } from '@/features/destination/domain/destination'
-import { getDestinationsQry, useCaseService } from '@/core/dependency-injection/app-container'
 
 import type { ShipType } from '@/features/trip/domain/ship-type'
+import { CelestiaContainer } from '@/core/dependency-injection/celestia-container'
+import { UseCaseService } from '@/core/use-cases/use-case-service'
+import { GetDestinationsQry } from '@/features/destination/destination-list/application/get-destinations.qry'
 
 export function DestinationSelector() {
   const router = useRouter()
@@ -17,6 +19,8 @@ export function DestinationSelector() {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
   const [showCreateForm, setShowCreateForm] = useState(false)
+  const useCaseService = CelestiaContainer.getInstance().get<UseCaseService>(UseCaseService.ID)
+  const getDestinationsQry = CelestiaContainer.getInstance().get<GetDestinationsQry>(GetDestinationsQry.ID)
 
   useEffect(() => {
     const fetchDestinations = async () => {

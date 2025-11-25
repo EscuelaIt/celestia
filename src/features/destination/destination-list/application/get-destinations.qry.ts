@@ -4,6 +4,8 @@ import type { DestinationRepository } from '@/features/destination/domain/destin
 import { DestinationOrderer } from '@/features/destination/destination-list/domain/destination-orderer'
 
 export class GetDestinationsQry implements Query<Destination[]> {
+  static readonly ID = 'GetDestinationsQry'
+
   constructor(
     private readonly destinationRepository: DestinationRepository,
     private readonly destinationOrderer: DestinationOrderer,

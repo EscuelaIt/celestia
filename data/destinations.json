@@ -42,5 +42,16 @@
       "advanced": 300
     },
     "emoji": "🧊"
+  },
+  {
+    "id": "dasdsaasd",
+    "name": "dasdsaasd",
+    "distance": 11,
+    "description": "dsaasdasd das asdas",
+    "travelTime": {
+      "classic": 12,
+      "advanced": 11
+    },
+    "emoji": "as"
   }
 ]

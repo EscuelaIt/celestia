@@ -3,6 +3,8 @@ import type { UseCase } from '@/core/use-cases/use-case'
 import { UseCaseHandler } from '@/core/use-cases/use-case-handler'
 
 export class LoggerMiddleware implements Middleware {
+  static readonly ID = 'LoggerMiddleware'
+
   private getActualUseCaseName(useCase: UseCase<unknown, unknown>): string {
     if (useCase instanceof UseCaseHandler) {
       return this.getActualUseCaseName(useCase.useCase)

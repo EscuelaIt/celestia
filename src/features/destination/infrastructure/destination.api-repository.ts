@@ -6,6 +6,8 @@ import type { DestinationDto } from '@/features/destination/infrastructure/desti
 import type { DateTransformer } from '@/features/destination/infrastructure/date.transformer'
 
 export class DestinationApiRepository implements DestinationRepository {
+  static readonly ID = 'DestinationApiRepository'
+
   constructor(
     private readonly httpClient: HttpClient,
     private readonly dateTransformer: DateTransformer,

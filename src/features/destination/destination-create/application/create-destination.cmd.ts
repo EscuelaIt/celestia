@@ -3,6 +3,8 @@ import type { Command } from '@/core/use-cases/command'
 import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {
+  static readonly ID = 'CreateDestinationCmd'
+
   constructor(private readonly destinationRepository: DestinationRepository) {}
 
   async handle(createDestination: CreateDestination): Promise<void> {

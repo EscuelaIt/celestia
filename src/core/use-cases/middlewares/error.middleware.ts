@@ -3,6 +3,8 @@ import type { UseCase } from '../use-case'
 import { type EventEmitter, EventType } from '@/core/event-emitter/event-emitter'
 
 export class ErrorMiddleware implements Middleware {
+  static readonly ID = 'ErrorMiddleware'
+
   constructor(private readonly eventEmitter: EventEmitter) {}
 
   async intercept(params: unknown, useCase: UseCase<unknown, unknown>): Promise<unknown> {

@@ -1,4 +1,6 @@
 export class HttpClient {
+  static readonly ID = 'HttpClient'
+
   constructor(private readonly baseUrl: string) {}
 
   private async request<Result, Body = void>(url: string, method: 'POST' | 'GET', body?: Body): Promise<Result> {

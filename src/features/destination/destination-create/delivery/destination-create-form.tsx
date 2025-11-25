@@ -6,7 +6,9 @@ import { Button } from '@/core/components/ui/button'
 import { Input } from '@/core/components/ui/input'
 import { Textarea } from '@/core/components/ui/textarea'
 import { Label } from '@/core/components/ui/label'
-import { createDestinationCmd, useCaseService } from '@/core/dependency-injection/app-container'
+import { CelestiaContainer } from '@/core/dependency-injection/celestia-container'
+import { UseCaseService } from '@/core/use-cases/use-case-service'
+import { CreateDestinationCmd } from '@/features/destination/destination-create/application/create-destination.cmd'
 
 interface CreateDestinationFormProps {
   onDestinationCreated: () => void
@@ -79,6 +81,8 @@ export function DestinationCreateForm({ onDestinationCreated, onCancel }: Create
         emoji: formData.emoji.trim(),
       }
 
+      const useCaseService = CelestiaContainer.getInstance().get<UseCaseService>(UseCaseService.ID)
+      const createDestinationCmd = CelestiaContainer.getInstance().get<CreateDestinationCmd>(CreateDestinationCmd.ID)
       await useCaseService.execute(createDestinationCmd, newDestination)
 
       onDestinationCreated()

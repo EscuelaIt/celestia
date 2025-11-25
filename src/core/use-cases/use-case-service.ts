@@ -4,6 +4,8 @@ import { UseCaseHandler } from '@/core/use-cases/use-case-handler'
 import { EmptyMiddleware } from '@/core/use-cases/middlewares/empty.middleware'
 
 export class UseCaseService {
+  static readonly ID = 'UseCaseService'
+
   constructor(private readonly middlewares: Middleware[]) {}
 
   execute<In, Out>(useCase: UseCase<In, Out>, params?: In): Promise<Out> {
