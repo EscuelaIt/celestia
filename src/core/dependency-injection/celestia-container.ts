@@ -30,7 +30,7 @@ export class CelestiaContainer implements Container {
     return globalForCelestia.celestia!
   }
 
-  constructor() {
+  private constructor() {
     this.registerArtifacts()
     this.registerRepositories()
     this.registerUseCases()
@@ -40,7 +40,7 @@ export class CelestiaContainer implements Container {
     const instance = this.registry.get(key)
 
     if (instance === undefined) {
-      throw new Error(`Instance for key ${key} is missing`)
+      throw new Error(`Instance for key ${key.toString()} is missing`)
     }
 
     return instance as Instance
