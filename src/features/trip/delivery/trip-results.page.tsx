@@ -15,11 +15,10 @@ export const TripResultsPage: FC<{ calculateTrip: CalculateTrip }> = ({
   const router = useRouter()
   const [tripData, setTripData] = useState<Trip | null>(null)
   const useCaseService = CelestiaContainer.getInstance().get(UseCaseService)
-  const calculateTripCmd = CelestiaContainer.getInstance().get(CalculateTripCmd)
 
   useEffect(() => {
     const fetchTripData = async () => {
-      const trip = await useCaseService.execute(calculateTripCmd, { destinationId, shipType })
+      const trip = await useCaseService.execute(CalculateTripCmd, { destinationId, shipType })
       setTripData(trip)
     }
 

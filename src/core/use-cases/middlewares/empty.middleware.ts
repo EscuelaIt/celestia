@@ -5,7 +5,7 @@ import type { InjectionToken } from '@/core/dependency-injection/injection-token
 export class EmptyMiddleware implements Middleware {
   static readonly ID: InjectionToken = Symbol('EmptyMiddleware')
 
-  intercept(params: unknown, useCase: UseCase<unknown, unknown>): Promise<unknown> {
+  intercept(params: unknown, useCase: UseCase): Promise<unknown> {
     return useCase.handle(params)
   }
 }

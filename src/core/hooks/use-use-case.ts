@@ -1,21 +1,29 @@
 import { CelestiaContainer } from '@/core/dependency-injection/celestia-container'
 import { UseCaseService } from '@/core/use-cases/use-case-service'
-import { GetDestinationsQry } from '@/features/destination/destination-list/application/get-destinations.qry'
-import type { UseCase } from '@/core/use-cases/use-case'
+import type { UseCase, UseCaseParams, UseCaseReturn } from '@/core/use-cases/use-case'
 import type { WithInjectionToken } from '@/core/dependency-injection/with-injection-token'
 import type { AnyConstructor } from '@/core/types/any-constructor'
+import { useCallback } from 'react'
 
-interface UseUseCaseReturn {
-  execute: (params: unknown) => void
+export interface UseCaseState<T extends UseCase> {
+  /** Function to execute the use case */
+  execute: (params?: UseCaseParams<T>) => Promise<UseCaseReturn<T>>
 }
 
-export function useUseCase(useCase: WithInjectionToken<AnyConstructor>): UseUseCaseReturn {
+export function useUseCase<T extends UseCase>(useCaseClass: WithInjectionToken<AnyConstructor<T>>): UseCaseState<T> {
   const container = CelestiaContainer.getInstance()
-  const useCaseService = container.get(UseCaseService)
 
-  const useCaseInstance = container.get(useCase)
+  const execute = useCallback(
+    async (params?: UseCaseParams<T>): Promise<UseCaseReturn<T>> => {
+      const useCaseService = container.get(UseCaseService)
 
+      const result = await useCaseService.execute(useCaseClass, params)
+
+      return result
+    },
+    [useCaseClass],
+  )
   return {
-    execute: useCaseInstance.handle,
+    execute,
   }
 }

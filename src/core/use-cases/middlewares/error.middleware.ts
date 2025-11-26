@@ -8,7 +8,7 @@ export class ErrorMiddleware implements Middleware {
 
   constructor(private readonly eventEmitter: EventEmitter) {}
 
-  async intercept(params: unknown, useCase: UseCase<unknown, unknown>): Promise<unknown> {
+  async intercept(params: unknown, useCase: UseCase): Promise<unknown> {
     try {
       return await useCase.handle(params)
     } catch (error) {

@@ -1,9 +1,9 @@
 import type { UseCase } from '@/core/use-cases/use-case'
 import type { Middleware } from '@/core/use-cases/middlewares/middleware'
 
-export class UseCaseHandler implements UseCase<unknown, unknown> {
+export class UseCaseHandler implements UseCase {
   constructor(
-    readonly useCase: UseCase<unknown, unknown>,
+    readonly useCase: UseCase,
     private readonly middleware: Middleware,
   ) {}
 

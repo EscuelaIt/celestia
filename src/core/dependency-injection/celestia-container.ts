@@ -62,9 +62,18 @@ export class CelestiaContainer implements Container {
   private registerArtifacts() {
     const eventEmitter = new EventEmitter()
     this.register(eventEmitter)
-    const middlewares = [new ErrorMiddleware(eventEmitter), new LoggerMiddleware(), new EmptyMiddleware()]
+    const emptyMiddleware = new EmptyMiddleware()
+    this.register(emptyMiddleware)
 
-    const useCaseService = new UseCaseService(middlewares)
+    const loggerMiddleware = new LoggerMiddleware()
+    this.register(loggerMiddleware)
+
+    const errorMiddleware = new ErrorMiddleware(eventEmitter)
+    this.register(errorMiddleware)
+
+    const middlewares = [errorMiddleware, loggerMiddleware, emptyMiddleware]
+
+    const useCaseService = new UseCaseService(middlewares, this)
     this.register(useCaseService)
 
     const environment: Environment = {

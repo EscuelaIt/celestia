@@ -9,8 +9,6 @@ import { DestinationCreateForm } from '@/features/destination/destination-create
 import type { Destination } from '@/features/destination/domain/destination'
 
 import type { ShipType } from '@/features/trip/domain/ship-type'
-import { CelestiaContainer } from '@/core/dependency-injection/celestia-container'
-import { UseCaseService } from '@/core/use-cases/use-case-service'
 import { GetDestinationsQry } from '@/features/destination/destination-list/application/get-destinations.qry'
 import { useUseCase } from '@/core/hooks/use-use-case'
 
@@ -20,11 +18,11 @@ export function DestinationSelector() {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
   const [showCreateForm, setShowCreateForm] = useState(false)
-  useUseCase()
+  const { execute } = useUseCase(GetDestinationsQry)
 
   useEffect(() => {
     const fetchDestinations = async () => {
-      const destinations = await useCaseService.execute(getDestinationsQry)
+      const destinations = await execute(GetDestinationsQry)
       setDestinations(destinations)
     }
 
@@ -41,7 +39,7 @@ export function DestinationSelector() {
   const handleDestinationCreated = async () => {
     setShowCreateForm(false)
     // Refresh destinations list
-    const destinations = await useCaseService.execute(getDestinationsQry)
+    const destinations = await execute(GetDestinationsQry)
     setDestinations(destinations)
   }
 

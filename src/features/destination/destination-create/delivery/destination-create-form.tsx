@@ -74,6 +74,7 @@ export function DestinationCreateForm({ onDestinationCreated, onCancel }: Create
         name: formData.name.trim(),
         distance,
         description: formData.description.trim(),
+        creationDate: new Date(),
         travelTime: {
           classic: classicTravelTime,
           advanced: advancedTravelTime,
@@ -82,8 +83,7 @@ export function DestinationCreateForm({ onDestinationCreated, onCancel }: Create
       }
 
       const useCaseService = CelestiaContainer.getInstance().get(UseCaseService)
-      const createDestinationCmd = CelestiaContainer.getInstance().get(CreateDestinationCmd)
-      await useCaseService.execute(createDestinationCmd, newDestination)
+      await useCaseService.execute(CreateDestinationCmd, newDestination)
 
       onDestinationCreated()
     } catch (err) {
