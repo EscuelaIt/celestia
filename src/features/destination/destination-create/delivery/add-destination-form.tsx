@@ -85,7 +85,9 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
       emoji: formData.emoji.trim(),
     }
 
-    await createDestinationCmd.execute(newDestination)
+    await createDestinationCmd.execute(newDestination, {
+      confirm: 'Are you sure?',
+    })
 
     onDestinationAdded()
   }

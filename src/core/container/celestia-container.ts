@@ -11,6 +11,8 @@ import { LogMiddleware } from '@/core/use-cases/middlewares/log.middleware'
 import type { InjectionToken } from '@/core/container/injection-token'
 import type { AnyConstructor, WithInjectionToken } from '@/core/container/with-injection-token'
 import { EventEmitter } from '@/core/events/event-emitter'
+import { SuccessMiddleware } from '@/core/use-cases/middlewares/success.middleware'
+import { ConfirmMiddleware } from '@/core/use-cases/middlewares/confirm.middleware'
 
 // Extend globalThis to hold the singleton instance
 const globalForCelestia = globalThis as unknown as {
@@ -60,16 +62,24 @@ export class CelestiaContainer implements Container {
    * Register all middlewares, logger, event emitter, etc.
    */
   private registerArtifacts(): void {
+    const eventEmitter = new EventEmitter()
+
     const emptyMiddleware = new EmptyMiddleware()
     const errorMiddleware = new ErrorMiddleware()
     const logMiddleware = new LogMiddleware()
-    const eventEmitter = new EventEmitter()
+    const successMiddleware = new SuccessMiddleware(eventEmitter)
+    const confirmMiddleware = new ConfirmMiddleware(eventEmitter)
     this.register(emptyMiddleware)
     this.register(errorMiddleware)
     this.register(logMiddleware)
+    this.register(successMiddleware)
+    this.register(confirmMiddleware)
     this.register(eventEmitter)
 
-    const useCaseService = new UseCaseService([emptyMiddleware, errorMiddleware, logMiddleware], this)
+    const useCaseService = new UseCaseService(
+      [emptyMiddleware, confirmMiddleware, errorMiddleware, logMiddleware, successMiddleware],
+      this,
+    )
     this.register(useCaseService)
   }
 

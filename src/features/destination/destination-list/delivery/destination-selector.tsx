@@ -21,7 +21,7 @@ export function DestinationSelector() {
 
   useEffect(() => {
     const fetchDestinations = async () => {
-      const destinations = await getDestinationsQry.execute(undefined, { logLevel: 'silent' })
+      const destinations = await getDestinationsQry.execute()
       setDestinations(destinations)
     }
 
