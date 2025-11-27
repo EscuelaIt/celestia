@@ -4,6 +4,7 @@ import type { UseCase, UseCaseParams, UseCaseReturn } from '@/core/use-cases/use
 import type { Container } from '@/core/container/container'
 import type { AnyConstructor, WithInjectionToken } from '@/core/container/with-injection-token'
 import { UseCaseService } from '@/core/use-cases/use-case-service'
+import type { UseCaseOptions } from '@/core/use-cases/use-case-options'
 
 /**
  * State returned by the useUseCase hook.
@@ -14,7 +15,7 @@ export interface UseCaseState<T extends UseCase> {
   /** The data returned by the use case, if any */
   data: UseCaseReturn<T> | undefined
   /** Function to execute the use case */
-  execute: (params?: UseCaseParams<T>) => Promise<UseCaseReturn<T>>
+  execute: (params?: UseCaseParams<T>, options?: UseCaseOptions) => Promise<UseCaseReturn<T>>
   /** Reset the state to its initial values */
   reset: () => void
 }
@@ -52,12 +53,12 @@ export function createUseUseCase(container: Container) {
     const [data, setData] = useState<UseCaseReturn<T> | undefined>(undefined)
 
     const execute = useCallback(
-      async (params?: UseCaseParams<T>): Promise<UseCaseReturn<T>> => {
+      async (params?: UseCaseParams<T>, options?: UseCaseOptions): Promise<UseCaseReturn<T>> => {
         setIsLoading(true)
         try {
           const useCaseService = container.get(UseCaseService)
 
-          const result = await useCaseService.execute(useCaseClass, params)
+          const result = await useCaseService.execute(useCaseClass, params, options)
 
           setData(result)
           return result

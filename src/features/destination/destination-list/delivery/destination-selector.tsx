@@ -21,7 +21,7 @@ export function DestinationSelector() {
 
   useEffect(() => {
     const fetchDestinations = async () => {
-      const destinations = await getDestinationsQry.execute()
+      const destinations = await getDestinationsQry.execute(undefined, { logLevel: 'silent' })
       setDestinations(destinations)
     }
 
@@ -30,7 +30,6 @@ export function DestinationSelector() {
 
   const handlePlanTrip = () => {
     if (selectedDestination) {
-      // Navigate to trip results page instead of calling callback
       router.push(`/trip/${selectedDestination.id}/${selectedShip}`)
     }
   }
