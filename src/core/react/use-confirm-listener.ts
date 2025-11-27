@@ -34,9 +34,6 @@ export function useConfirmListener() {
   }
 
   const handleCancel = () => {
-    if (eventEmitter) {
-      eventEmitter.dispatch(EventType.CONFIRM_CANCELLED, {})
-    }
     setConfirmOptions(null)
   }
 

@@ -4,7 +4,6 @@ export enum EventType {
   SUCCESS = 'success',
   CONFIRM = 'confirm',
   CONFIRMED = 'confirmed',
-  CONFIRM_CANCELLED = 'confirm_cancelled',
 }
 
 type EventHandler = (data: unknown) => void
