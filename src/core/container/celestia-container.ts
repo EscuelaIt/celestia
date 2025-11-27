@@ -10,6 +10,7 @@ import { ErrorMiddleware } from '@/core/use-cases/middlewares/error.middleware'
 import { LogMiddleware } from '@/core/use-cases/middlewares/log.middleware'
 import type { InjectionToken } from '@/core/container/injection-token'
 import type { AnyConstructor, WithInjectionToken } from '@/core/container/with-injection-token'
+import { EventEmitter } from '@/core/events/event-emitter'
 
 // Extend globalThis to hold the singleton instance
 const globalForCelestia = globalThis as unknown as {
@@ -62,9 +63,11 @@ export class CelestiaContainer implements Container {
     const emptyMiddleware = new EmptyMiddleware()
     const errorMiddleware = new ErrorMiddleware()
     const logMiddleware = new LogMiddleware()
+    const eventEmitter = new EventEmitter()
     this.register(emptyMiddleware)
     this.register(errorMiddleware)
     this.register(logMiddleware)
+    this.register(eventEmitter)
 
     const useCaseService = new UseCaseService([emptyMiddleware, errorMiddleware, logMiddleware], this)
     this.register(useCaseService)
