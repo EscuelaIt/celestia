@@ -1,11 +1,11 @@
-import type { UseCase, UseCaseParams, UseCaseReturn } from '@/core/use-cases/use-case'
-import type { Middleware } from '@/core/use-cases/middlewares/middleware'
-import { UseCaseHandler } from '@/core/use-cases/use-case-handler'
-import { EmptyMiddleware } from '@/core/use-cases/middlewares/empty.middleware'
-import type { InjectionToken } from '@/core/dependency-injection/injection-token'
-import type { AnyConstructor } from '@/core/types/any-constructor'
-import type { WithInjectionToken } from '@/core/dependency-injection/with-injection-token'
-import type { Container } from '@/core/dependency-injection/container'
+import type { UseCase, UseCaseParams, UseCaseReturn } from '@/shared-core/use-cases/use-case'
+import type { Middleware } from '@/shared-core/use-cases/middlewares/middleware'
+import { UseCaseHandler } from '@/shared-core/use-cases/use-case-handler'
+import { EmptyMiddleware } from '@/shared-core/use-cases/middlewares/empty.middleware'
+import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
+import type { AnyConstructor } from '@/shared-core/types/any-constructor'
+import type { WithInjectionToken } from '@/shared-core/dependency-injection/with-injection-token'
+import type { Container } from '@/shared-core/dependency-injection/container'
 
 export class UseCaseService {
   static readonly ID: InjectionToken = Symbol('UseCaseService')

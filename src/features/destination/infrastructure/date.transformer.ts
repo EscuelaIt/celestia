@@ -1,5 +1,5 @@
-import type { Transformer } from '@/core/transformers/trasnformer'
-import type { InjectionToken } from '@/core/dependency-injection/injection-token'
+import type { Transformer } from '@/shared-core/transformers/trasnformer'
+import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
 
 type Iso8601Date = string
 

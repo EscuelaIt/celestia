@@ -1,8 +1,8 @@
 import type { Destination } from '@/features/destination/domain/destination'
-import type { Query } from '@/core/use-cases/query'
+import type { Query } from '@/shared-core/use-cases/query'
 import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
 import { DestinationOrderer } from '@/features/destination/destination-list/domain/destination-orderer'
-import type { InjectionToken } from '@/core/dependency-injection/injection-token'
+import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
 
 export class GetDestinationsQry implements Query<Destination[]> {
   static readonly ID: InjectionToken = Symbol('GetDestinationsQry')

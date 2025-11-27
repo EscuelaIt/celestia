@@ -1,4 +1,4 @@
-import type { InjectionToken } from '@/core/dependency-injection/injection-token'
+import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
 
 export const ENVIRONMENT_ID: InjectionToken = Symbol('ENVIRONMENT')
 

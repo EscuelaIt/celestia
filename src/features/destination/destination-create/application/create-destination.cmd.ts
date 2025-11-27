@@ -1,7 +1,7 @@
 import type { CreateDestination } from '@/features/destination/destination-create/domain/create-destination'
-import type { Command } from '@/core/use-cases/command'
+import type { Command } from '@/shared-core/use-cases/command'
 import type { DestinationRepository } from '@/features/destination/domain/destination.repository'
-import type { InjectionToken } from '@/core/dependency-injection/injection-token'
+import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
 
 export class CreateDestinationCmd implements Command<CreateDestination> {
   static readonly ID: InjectionToken = Symbol('CreateDestinationCmd')

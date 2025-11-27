@@ -1,4 +1,4 @@
-import type { Id } from '@/core/types/id'
+import type { Id } from '@/shared-core/types/id'
 
 import type { ShipType } from '@/features/trip/domain/ship-type'
 

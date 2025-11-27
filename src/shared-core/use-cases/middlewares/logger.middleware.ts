@@ -1,9 +1,9 @@
-import type { Middleware } from '@/core/use-cases/middlewares/middleware'
-import type { UseCase } from '@/core/use-cases/use-case'
-import type { InjectionToken } from '@/core/dependency-injection/injection-token'
-import type { WithInjectionToken } from '@/core/dependency-injection/with-injection-token'
-import type { AnyConstructor } from '@/core/types/any-constructor'
-import { UseCaseHandler } from '@/core/use-cases/use-case-handler'
+import type { Middleware } from '@/shared-core/use-cases/middlewares/middleware'
+import type { UseCase } from '@/shared-core/use-cases/use-case'
+import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
+import type { WithInjectionToken } from '@/shared-core/dependency-injection/with-injection-token'
+import type { AnyConstructor } from '@/shared-core/types/any-constructor'
+import { UseCaseHandler } from '@/shared-core/use-cases/use-case-handler'
 
 export class LoggerMiddleware implements Middleware {
   static readonly ID: InjectionToken = Symbol('LoggerMiddleware')

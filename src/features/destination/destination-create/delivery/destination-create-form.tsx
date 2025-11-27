@@ -1,13 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/ui/card'
-import { Button } from '@/core/components/ui/button'
-import { Input } from '@/core/components/ui/input'
-import { Textarea } from '@/core/components/ui/textarea'
-import { Label } from '@/core/components/ui/label'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared-core/components/ui/card'
+import { Button } from '@/shared-core/components/ui/button'
+import { Input } from '@/shared-core/components/ui/input'
+import { Textarea } from '@/shared-core/components/ui/textarea'
+import { Label } from '@/shared-core/components/ui/label'
 import { CelestiaContainer } from '@/core/dependency-injection/celestia-container'
-import { UseCaseService } from '@/core/use-cases/use-case-service'
+import { UseCaseService } from '@/shared-core/use-cases/use-case-service'
 import { CreateDestinationCmd } from '@/features/destination/destination-create/application/create-destination.cmd'
 
 interface CreateDestinationFormProps {

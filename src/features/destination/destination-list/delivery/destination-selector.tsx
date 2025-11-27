@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Card, CardContent } from '@/core/components/ui/card'
-import { Button } from '@/core/components/ui/button'
-import { Badge } from '@/core/components/ui/badge'
+import { Card, CardContent } from '@/shared-core/components/ui/card'
+import { Button } from '@/shared-core/components/ui/button'
+import { Badge } from '@/shared-core/components/ui/badge'
 import { DestinationCreateForm } from '@/features/destination/destination-create/delivery/destination-create-form'
 import type { Destination } from '@/features/destination/domain/destination'
 

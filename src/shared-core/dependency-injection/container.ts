@@ -1,6 +1,6 @@
-import type { InjectionToken } from '@/core/dependency-injection/injection-token'
-import type { WithInjectionToken } from '@/core/dependency-injection/with-injection-token'
-import type { AnyConstructor } from '@/core/types/any-constructor'
+import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
+import type { WithInjectionToken } from '@/shared-core/dependency-injection/with-injection-token'
+import type { AnyConstructor } from '@/shared-core/types/any-constructor'
 
 export interface Container {
   register<Instance extends WithInjectionToken<AnyConstructor>>(instance: Instance): void

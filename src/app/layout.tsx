@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import type { ReactNode } from 'react'
-import { ErrorDisplay } from '@/core/components/error-display'
+import { ErrorDisplay } from '@/shared-core/components/error-display'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

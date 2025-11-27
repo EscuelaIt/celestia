@@ -1,5 +1,5 @@
-import type { Middleware } from '@/core/use-cases/middlewares/middleware'
-import type { UseCase } from '@/core/use-cases/use-case'
+import type { Middleware } from '@/shared-core/use-cases/middlewares/middleware'
+import type { UseCase } from '@/shared-core/use-cases/use-case'
 
 export class TimeoutMiddleware<In, Out> implements Middleware {
   constructor(private readonly ms: number) {}

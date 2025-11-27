@@ -2,9 +2,9 @@
 
 import { XCircle } from 'lucide-react'
 import type { FC } from 'react'
-import { useErrorListener } from '@/core/hooks/use-error-listener'
-import { Alert, AlertDescription, AlertTitle } from '@/core/components/ui/alert'
-import { Button } from '@/core/components/ui/button'
+import { useErrorListener } from '@/shared-core/hooks/use-error-listener'
+import { Alert, AlertDescription, AlertTitle } from '@/shared-core/components/ui/alert'
+import { Button } from '@/shared-core/components/ui/button'
 
 export const ErrorDisplay: FC = () => {
   const { error, clearError } = useErrorListener()

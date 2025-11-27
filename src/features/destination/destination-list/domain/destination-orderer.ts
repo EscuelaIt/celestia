@@ -1,5 +1,5 @@
 import type { Destination } from '@/features/destination/domain/destination'
-import type { InjectionToken } from '@/core/dependency-injection/injection-token'
+import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
 
 export class DestinationOrderer {
   static readonly ID: InjectionToken = Symbol('DestinationOrderer')

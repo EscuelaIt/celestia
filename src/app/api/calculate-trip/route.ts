@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 import { promises as fs } from 'fs'
 import type { Destination } from '@/features/destination/domain/destination'
-import type { Id } from '@/core/types/id'
+import type { Id } from '@/shared-core/types/id'
 import type { Trip } from '@/features/trip/domain/trip'
 import type { ShipType } from '@/features/trip/domain/ship-type'
 
