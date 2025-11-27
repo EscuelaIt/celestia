@@ -3,12 +3,17 @@ import type { UseCase } from '@/core/use-cases/use-case'
 import type { InjectionToken } from '@/core/dependency-injection/injection-token'
 import type { WithInjectionToken } from '@/core/dependency-injection/with-injection-token'
 import type { AnyConstructor } from '@/core/types/any-constructor'
+import { UseCaseHandler } from '@/core/use-cases/use-case-handler'
 
 export class LoggerMiddleware implements Middleware {
   static readonly ID: InjectionToken = Symbol('LoggerMiddleware')
 
   private getActualUseCaseName(useCase: WithInjectionToken<AnyConstructor>): string {
-    return useCase.ID.toString()
+    if (useCase instanceof UseCaseHandler) {
+      return this.getActualUseCaseName(useCase.useCase as unknown as WithInjectionToken<AnyConstructor>)
+    }
+
+    return (useCase.constructor as WithInjectionToken<AnyConstructor>).ID?.description?.toString() ?? 'unknown use case'
   }
 
   async intercept(params: unknown, useCase: UseCase): Promise<unknown> {
