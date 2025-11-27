@@ -1,7 +1,7 @@
 import { type FC, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Trip } from '@/features/trip/domain/trip'
-import { SpaceBackground } from '@/shared-core/components/space-background'
+import { SpaceBackground } from '@/core/components/space-background'
 import { Badge } from '@/shared-core/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared-core/components/ui/card'
 import type { CalculateTrip } from '@/features/trip/domain/calculate-trip'
