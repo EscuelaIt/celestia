@@ -87,6 +87,7 @@ export function AddDestinationForm({ onDestinationAdded, onCancel }: AddDestinat
 
     await createDestinationCmd.execute(newDestination, {
       confirm: 'Are you sure?',
+      success: 'Destination added successfully.',
     })
 
     onDestinationAdded()

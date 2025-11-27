@@ -72,8 +72,8 @@ export class CelestiaContainer implements Container {
     this.register(emptyMiddleware)
     this.register(errorMiddleware)
     this.register(logMiddleware)
-    this.register(successMiddleware)
     this.register(confirmMiddleware)
+    this.register(successMiddleware)
     this.register(eventEmitter)
 
     const useCaseService = new UseCaseService(

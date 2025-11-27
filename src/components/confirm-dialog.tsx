@@ -12,8 +12,6 @@ export const ConfirmDialog: FC = () => {
     return null
   }
 
-  console.log(confirmOptions)
-
   return (
     <Dialog open={!!confirmOptions} onOpenChange={handleCancel}>
       <DialogContent>

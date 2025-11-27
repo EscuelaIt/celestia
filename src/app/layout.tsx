@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import type { ReactNode } from 'react'
 import { ConfirmDialog } from '@/components/confirm-dialog'
+import { SuccessDisplay } from '@/components/success-display'
+import { Toaster } from '@/components/ui/sonner'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,6 +31,8 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         <ConfirmDialog />
+        <SuccessDisplay />
+        <Toaster />
       </body>
     </html>
   )
