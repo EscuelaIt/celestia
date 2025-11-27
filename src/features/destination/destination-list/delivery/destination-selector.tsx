@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card, CardContent } from '@/shared-core/components/ui/card'
 import { Button } from '@/shared-core/components/ui/button'
@@ -14,10 +14,15 @@ import { useUseCase } from '@/core/hooks/use-use-case'
 
 export function DestinationSelector() {
   const router = useRouter()
+  const [destinations, setDestinations] = useState<Destination[]>([])
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
   const [showCreateForm, setShowCreateForm] = useState(false)
-  const [, destinationState] = useUseCase(GetDestinationsQry, { immediate: true })
+  const [getDestinationsQry] = useUseCase(GetDestinationsQry)
+
+  useEffect(() => {
+    getDestinationsQry(undefined, { logLevel: 'silent' }).then(setDestinations)
+  }, [])
 
   const handlePlanTrip = () => {
     if (selectedDestination) {
@@ -29,8 +34,8 @@ export function DestinationSelector() {
   const handleDestinationCreated = async () => {
     setShowCreateForm(false)
     // Refresh destinations list
-    // const destinations = await getDestinationsQry()
-    // setDestinations(destinations)
+    const destinations = await getDestinationsQry()
+    setDestinations(destinations)
   }
 
   const handleCancelCreate = () => {
@@ -57,7 +62,7 @@ export function DestinationSelector() {
           </Button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {destinationState.data?.map(destination => (
+          {destinations.map(destination => (
             <Card
               key={destination.id}
               data-testid="destination-card"

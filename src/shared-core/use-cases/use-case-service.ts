@@ -6,6 +6,7 @@ import type { InjectionToken } from '@/shared-core/dependency-injection/injectio
 import type { AnyConstructor } from '@/shared-core/types/any-constructor'
 import type { WithInjectionToken } from '@/shared-core/dependency-injection/with-injection-token'
 import type { Container } from '@/shared-core/dependency-injection/container'
+import type { UseCaseOptions } from '@/shared-core/use-cases/use-case-options'
 
 export class UseCaseService {
   static readonly ID: InjectionToken = Symbol('UseCaseService')
@@ -18,12 +19,21 @@ export class UseCaseService {
   execute<T extends UseCase>(
     useCaseClass: WithInjectionToken<AnyConstructor<T>>,
     params?: UseCaseParams<T>,
+    options?: UseCaseOptions,
   ): Promise<UseCaseReturn<T>> {
     const useCase = this.container.get(useCaseClass)
-    let next = new UseCaseHandler(useCase, this.container.get(EmptyMiddleware))
+    const requiredOptions = options ?? {
+      logLevel: 'info',
+    }
+
+    let next = UseCaseHandler.create({
+      useCase,
+      middleware: this.container.get(EmptyMiddleware),
+      options: requiredOptions,
+    })
 
     for (let i = this.middlewares.length - 1; i >= 0; i--) {
-      next = new UseCaseHandler(next, this.middlewares[i]!)
+      next = UseCaseHandler.create({ useCase: next, middleware: this.middlewares[i]!, options: requiredOptions })
     }
 
     return next.handle(params) as Promise<UseCaseReturn<T>>

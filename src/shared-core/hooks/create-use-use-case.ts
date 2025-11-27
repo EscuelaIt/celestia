@@ -4,9 +4,10 @@ import type { WithInjectionToken } from '@/shared-core/dependency-injection/with
 import type { AnyConstructor } from '@/shared-core/types/any-constructor'
 import { useCallback, useEffect, useState } from 'react'
 import type { Container } from '@/shared-core/dependency-injection/container'
+import type { UseCaseOptions } from '@/shared-core/use-cases/use-case-options'
 
 export type UseCaseState<T extends UseCase> = [
-  execute: (params?: UseCaseParams<T>) => Promise<UseCaseReturn<T>>,
+  execute: (params?: UseCaseParams<T>, options?: UseCaseOptions) => Promise<UseCaseReturn<T>>,
   { isLoading: boolean; data: UseCaseReturn<T> | undefined },
 ]
 
@@ -30,11 +31,11 @@ export function createUseUseCase(container: Container) {
     }, [])
 
     const execute = useCallback(
-      async (params?: UseCaseParams<T>): Promise<UseCaseReturn<T>> => {
+      async (params?: UseCaseParams<T>, options?: UseCaseOptions): Promise<UseCaseReturn<T>> => {
         const useCaseService = container.get(UseCaseService)
         setIsLoading(true)
 
-        const result = await useCaseService.execute(useCaseClass, params)
+        const result = await useCaseService.execute(useCaseClass, params, options)
 
         setIsLoading(false)
 
