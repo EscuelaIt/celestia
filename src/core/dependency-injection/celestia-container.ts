@@ -16,6 +16,7 @@ import { type Environment, ENVIRONMENT_ID } from '@/core/environment/environment
 import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
 import type { WithInjectionToken } from '@/shared-core/dependency-injection/with-injection-token'
 import type { AnyConstructor } from '@/shared-core/types/any-constructor'
+import { SuccessMiddleware } from '@/shared-core/use-cases/middlewares/success.middleware'
 
 const globalForCelestia = globalThis as unknown as {
   celestia?: Container
@@ -61,52 +62,52 @@ export class CelestiaContainer implements Container {
 
   private registerArtifacts() {
     const eventEmitter = new EventEmitter()
-    this.register(eventEmitter)
     const emptyMiddleware = new EmptyMiddleware()
-    this.register(emptyMiddleware)
-
     const loggerMiddleware = new LoggerMiddleware()
-    this.register(loggerMiddleware)
-
     const errorMiddleware = new ErrorMiddleware(eventEmitter)
-    this.register(errorMiddleware)
+    const successMiddleware = new SuccessMiddleware(eventEmitter)
 
-    const middlewares = [errorMiddleware, loggerMiddleware, emptyMiddleware]
+    const middlewares = [errorMiddleware, loggerMiddleware, successMiddleware]
 
     const useCaseService = new UseCaseService(middlewares, this)
-    this.register(useCaseService)
-
     const environment: Environment = {
       NEXT_PUBLIC_BASE_API_URL: process.env['NEXT_PUBLIC_BASE_API_URL']!,
     }
-    this.registerWithKey(ENVIRONMENT_ID, environment)
-
     const httpClient = new HttpClient(environment.NEXT_PUBLIC_BASE_API_URL)
-    this.register(httpClient)
     const dateTransformer = new DateTransformer()
+
+    this.register(eventEmitter)
+    this.register(emptyMiddleware)
+    this.register(loggerMiddleware)
+    this.register(errorMiddleware)
+    this.register(useCaseService)
+    this.register(httpClient)
     this.register(dateTransformer)
+
+    this.registerWithKey(ENVIRONMENT_ID, environment)
   }
 
   private registerRepositories() {
     const httpClient = this.get(HttpClient)
     const dateTransformer = this.get(DateTransformer)
     const destinationApiRepository = new DestinationApiRepository(httpClient, dateTransformer)
-    this.register(destinationApiRepository)
     const tripApiRepository = new TripApiRepository(httpClient)
+
+    this.register(destinationApiRepository)
     this.register(tripApiRepository)
   }
 
   private registerUseCases() {
     const destinationOrderer = new DestinationOrderer()
-    this.register(destinationOrderer)
     const destinationApiRepository = this.get(DestinationApiRepository)
     const getDestinationsQry = new GetDestinationsQry(destinationApiRepository, destinationOrderer)
-    this.register(getDestinationsQry)
-
     const createDestinationCmd = new CreateDestinationCmd(destinationApiRepository)
-    this.register(createDestinationCmd)
     const tripApiRepository = this.get(TripApiRepository)
     const calculateTripCmd = new CalculateTripCmd(tripApiRepository)
+
+    this.register(destinationOrderer)
+    this.register(getDestinationsQry)
+    this.register(createDestinationCmd)
     this.register(calculateTripCmd)
   }
 }

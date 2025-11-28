@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import type { ReactNode } from 'react'
 import { ErrorDisplay } from '@/shared-core/components/error-display'
+import { SuccessDisplay } from '@/shared-core/components/success-display'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ErrorDisplay />
+        <SuccessDisplay />
         {children}
       </body>
     </html>

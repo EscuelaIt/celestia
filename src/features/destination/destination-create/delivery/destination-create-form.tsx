@@ -83,7 +83,9 @@ export function DestinationCreateForm({ onDestinationCreated, onCancel }: Create
       }
 
       const useCaseService = CelestiaContainer.getInstance().get(UseCaseService)
-      await useCaseService.execute(CreateDestinationCmd, newDestination)
+      await useCaseService.execute(CreateDestinationCmd, newDestination, {
+        success: 'Destination Created',
+      })
 
       onDestinationCreated()
     } catch (err) {
