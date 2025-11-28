@@ -17,6 +17,7 @@ import type { InjectionToken } from '@/shared-core/dependency-injection/injectio
 import type { WithInjectionToken } from '@/shared-core/dependency-injection/with-injection-token'
 import type { AnyConstructor } from '@/shared-core/types/any-constructor'
 import { SuccessMiddleware } from '@/shared-core/use-cases/middlewares/success.middleware'
+import { ConfirmMiddleware } from '@/shared-core/use-cases/middlewares/confirm.middleware'
 
 const globalForCelestia = globalThis as unknown as {
   celestia?: Container
@@ -66,8 +67,9 @@ export class CelestiaContainer implements Container {
     const loggerMiddleware = new LoggerMiddleware()
     const errorMiddleware = new ErrorMiddleware(eventEmitter)
     const successMiddleware = new SuccessMiddleware(eventEmitter)
+    const confirmMiddleware = new ConfirmMiddleware(eventEmitter)
 
-    const middlewares = [errorMiddleware, loggerMiddleware, successMiddleware]
+    const middlewares = [confirmMiddleware, errorMiddleware, loggerMiddleware, successMiddleware]
 
     const useCaseService = new UseCaseService(middlewares, this)
     const environment: Environment = {
@@ -80,6 +82,8 @@ export class CelestiaContainer implements Container {
     this.register(emptyMiddleware)
     this.register(loggerMiddleware)
     this.register(errorMiddleware)
+    this.register(confirmMiddleware)
+    this.register(successMiddleware)
     this.register(useCaseService)
     this.register(httpClient)
     this.register(dateTransformer)

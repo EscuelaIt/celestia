@@ -44,14 +44,27 @@
     "emoji": "🧊"
   },
   {
-    "id": "dasdsaasd",
-    "name": "dasdsaasd",
-    "distance": 11,
-    "description": "dsaasdasd das asdas",
+    "id": "a",
+    "name": "a",
+    "distance": 2,
+    "description": "saddsasd",
+    "creationDate": "2025-11-28T05:46:26.416Z",
     "travelTime": {
-      "classic": 12,
-      "advanced": 11
+      "classic": 2,
+      "advanced": 1
     },
-    "emoji": "as"
+    "emoji": "1"
+  },
+  {
+    "id": "aa",
+    "name": "aa",
+    "distance": 11,
+    "description": "sad",
+    "creationDate": "2025-11-28T05:50:37.617Z",
+    "travelTime": {
+      "classic": 2,
+      "advanced": 1
+    },
+    "emoji": "1"
   }
 ]

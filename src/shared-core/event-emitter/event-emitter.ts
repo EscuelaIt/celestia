@@ -31,7 +31,7 @@ export class EventEmitter {
     }
   }
 
-  dispatch(event: EventType, data: unknown): void {
+  dispatch(event: EventType, data?: unknown): void {
     const handlers = this.listeners.get(event)
     if (handlers) {
       handlers.forEach(handler => handler(data))

@@ -34,7 +34,7 @@ export function DestinationCreateForm({ onDestinationCreated, onCancel }: Create
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
+    // setLoading(true)
     setError(null)
 
     try {
@@ -85,6 +85,7 @@ export function DestinationCreateForm({ onDestinationCreated, onCancel }: Create
       const useCaseService = CelestiaContainer.getInstance().get(UseCaseService)
       await useCaseService.execute(CreateDestinationCmd, newDestination, {
         success: 'Destination Created',
+        confirm: 'Are you sure you want to create a Destination?',
       })
 
       onDestinationCreated()
