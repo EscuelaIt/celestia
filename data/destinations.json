@@ -42,29 +42,5 @@
       "advanced": 300
     },
     "emoji": "🧊"
-  },
-  {
-    "id": "a",
-    "name": "a",
-    "distance": 2,
-    "description": "saddsasd",
-    "creationDate": "2025-11-28T05:46:26.416Z",
-    "travelTime": {
-      "classic": 2,
-      "advanced": 1
-    },
-    "emoji": "1"
-  },
-  {
-    "id": "aa",
-    "name": "aa",
-    "distance": 11,
-    "description": "sad",
-    "creationDate": "2025-11-28T05:50:37.617Z",
-    "travelTime": {
-      "classic": 2,
-      "advanced": 1
-    },
-    "emoji": "1"
   }
 ]
