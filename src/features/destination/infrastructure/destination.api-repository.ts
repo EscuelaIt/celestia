@@ -5,6 +5,8 @@ import type { HttpClient } from '@/shared-core/http-client/http-client'
 import type { DestinationDto } from '@/features/destination/infrastructure/destination-dto'
 import type { DateTransformer } from '@/features/destination/infrastructure/date.transformer'
 import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
+import { DestinationNameDuplicatedError } from '@/features/destination/domain/destination-name-duplicated.error'
+import { HttpError } from '@/shared-core/http-client/http-error'
 
 export class DestinationApiRepository implements DestinationRepository {
   static readonly ID: InjectionToken = Symbol('DestinationApiRepository')
@@ -24,6 +26,15 @@ export class DestinationApiRepository implements DestinationRepository {
   }
 
   async create(createDestination: CreateDestination): Promise<void> {
-    return this.httpClient.post<CreateDestination>('destinations', createDestination)
+    try {
+      return await this.httpClient.post<CreateDestination>('destinations', createDestination)
+    } catch (e) {
+      if (e instanceof HttpError) {
+        if (e.code === 'DESTINATION_CREATE') {
+          throw new DestinationNameDuplicatedError()
+        }
+      }
+      throw e
+    }
   }
 }

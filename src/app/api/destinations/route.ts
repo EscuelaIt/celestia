@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { ERROR_CODES } from '@/shared-core/error/error-codes'
 import path from 'path'
 import { promises as fs } from 'fs'
 import type { Destination } from '@/features/destination/domain/destination'
+import { createNextHttpError } from '@/shared-core/http-client/create-next-http-error'
 
 export async function GET() {
   try {
@@ -45,16 +47,17 @@ export async function POST(request: NextRequest) {
     const fileContents = await fs.readFile(jsonDirectory + '/destinations.json', 'utf8')
     const destinations: Destination[] = JSON.parse(fileContents)
 
-    // Generate unique ID
     const id = newDestination.name
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '')
 
     // Check if destination already exists
-    if (destinations.find(d => d.id === id)) {
-      return NextResponse.json({ error: 'A destination with this name already exists' }, { status: 409 })
+    if (destinations.find(d => d.name === id)) {
+      return NextResponse.json(
+        createNextHttpError({
+          error: 'A destination with this name already exists',
+          code: ERROR_CODES.DESTINATION_DUPLICATED_NAME,
+        }),
+        { status: 409 },
+      )
     }
 
     // Create new destination with ID
@@ -72,6 +75,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(destinationWithId, { status: 201 })
   } catch (error) {
     console.error('Error adding destination:', error)
-    return NextResponse.json({ error: 'Failed to add destination' }, { status: 500 })
+    return NextResponse.json(createNextHttpError({ error: 'Failed to add destination', code: 'DESTINATION_CREATE' }), {
+      status: 500,
+    })
   }
 }
