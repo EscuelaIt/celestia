@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 import { ErrorDisplay } from '@/shared-core/components/error-display'
 import { SuccessDisplay } from '@/shared-core/components/success-display'
 import { ConfirmDialog } from '@/shared-core/components/confirm-dialog'
+import { GlobalValueProvider } from '@/shared-core/context/global-value'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,10 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ErrorDisplay />
-        <SuccessDisplay />
-        <ConfirmDialog />
-        {children}
+        <GlobalValueProvider>
+          <ErrorDisplay />
+          <SuccessDisplay />
+          <ConfirmDialog />
+          {children}
+        </GlobalValueProvider>
       </body>
     </html>
   )

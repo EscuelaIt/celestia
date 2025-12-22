@@ -1,5 +1,6 @@
 import { type FC, type PropsWithChildren } from 'react'
 import { SpaceBackground } from '@/core/components/space-background'
+import { GlobalValueBanner } from '@/shared-core/components/global-value-banner'
 
 export const Page: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -14,6 +15,7 @@ export const Page: FC<PropsWithChildren> = ({ children }) => {
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Space Travel Planner
           </p>
+          <GlobalValueBanner />
           <div className="mt-6 flex items-center justify-center gap-2">
             <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
             <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-150"></div>

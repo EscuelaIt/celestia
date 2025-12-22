@@ -11,10 +11,11 @@ export type UseCaseState<T extends UseCase> = [
 
 export function createGetUseCase(container: Container) {
   return function getUseCase<T extends UseCase>(useCaseClass: WithInjectionToken<AnyConstructor<T>>): UseCaseState<T> {
-    const useCaseService = container.get(UseCaseService)
-
     return [
-      (params?: UseCaseParams<T>, options?: UseCaseOptions) => useCaseService.execute(useCaseClass, params, options),
+      (params?: UseCaseParams<T>, options?: UseCaseOptions) => {
+        const useCaseService = container.get(UseCaseService)
+        return useCaseService.execute(useCaseClass, params, options)
+      },
     ]
   }
 }
