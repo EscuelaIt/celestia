@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
@@ -17,7 +18,7 @@ export default defineConfig({
     include: ['**/*.test.it.tsx'],
     name: 'integration',
     browser: {
-      provider: 'playwright',
+      provider: playwright(),
       enabled: true,
       instances: [{ browser: 'chromium' }],
     },

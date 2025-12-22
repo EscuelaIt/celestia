@@ -3,7 +3,7 @@ import { render } from 'vitest-browser-react'
 
 describe('math', () => {
   it('loads and displays greeting', async () => {
-    const screen = render(<h1>Hello world</h1>)
+    const screen = await render(<h1>Hello world</h1>)
 
     const heading = screen.getByRole('heading')
 

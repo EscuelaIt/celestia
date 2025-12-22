@@ -74,6 +74,7 @@ test.describe('Destinations', () => {
 
     // Submit the form
     await page.click('button[type="submit"]')
+    await page.getByRole('button', { name: 'Confirm' }).click()
 
     // Should return to destinations list
     await expect(page.locator('text=/Select Destination')).toBeVisible({ timeout: 10000 })
