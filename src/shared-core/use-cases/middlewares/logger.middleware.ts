@@ -7,8 +7,6 @@ import { UseCaseHandler } from '@/shared-core/use-cases/use-case-handler'
 import type { UseCaseOptions } from '@/shared-core/use-cases/use-case-options'
 
 export class LoggerMiddleware implements Middleware {
-  private isFirst = true
-
   static readonly ID: InjectionToken = Symbol('LoggerMiddleware')
 
   private getActualUseCaseName(useCase: WithInjectionToken<AnyConstructor>): string {
@@ -20,11 +18,6 @@ export class LoggerMiddleware implements Middleware {
   }
 
   async intercept(params: unknown, useCase: UseCase, options: UseCaseOptions): Promise<unknown> {
-    if (this.isFirst) {
-      console.log('First')
-      this.isFirst = false
-    }
-
     if (options.logLevel === 'silent') {
       return useCase.handle(params)
     }

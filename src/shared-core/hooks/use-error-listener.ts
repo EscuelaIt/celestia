@@ -6,9 +6,9 @@ import { CelestiaContainer } from '@/core/dependency-injection/celestia-containe
 
 export function useErrorListener() {
   const [error, setError] = useState<Error | null>(null)
-  const eventEmitter = CelestiaContainer.getInstance().get(EventEmitter)
 
   useEffect(() => {
+    const eventEmitter = CelestiaContainer.getInstance().get(EventEmitter)
     const unsubscribe = eventEmitter.subscribe(EventType.ERROR, data => {
       setError(data as Error)
     })
