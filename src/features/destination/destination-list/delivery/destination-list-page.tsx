@@ -1,8 +1,13 @@
 import { SpaceBackground } from '@/core/components/space-background'
 import { DestinationSelector } from '@/features/destination/destination-list/delivery/destination-selector'
 import { type FC } from 'react'
+import { GetDestinationsQry } from '@/features/destination/destination-list/application/get-destinations.qry'
+import { getUseCase } from '@/core/react/get-use-case'
 
-export const DestinationListPage: FC = () => {
+export const DestinationListPage: FC = async () => {
+  const [getDestinationsQry] = getUseCase(GetDestinationsQry)
+  const destinations = await getDestinationsQry()
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       <SpaceBackground />
@@ -23,7 +28,7 @@ export const DestinationListPage: FC = () => {
         </header>
 
         <main className="max-w-6xl mx-auto">
-          <DestinationSelector />
+          <DestinationSelector destinations={destinations} />
         </main>
 
         <footer className="mt-16 text-center text-muted-foreground">

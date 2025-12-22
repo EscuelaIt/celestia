@@ -1,53 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { type FC, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card, CardContent } from '@/shared-core/components/ui/card'
 import { Button } from '@/shared-core/components/ui/button'
 import { Badge } from '@/shared-core/components/ui/badge'
-import { DestinationCreateForm } from '@/features/destination/destination-create/delivery/destination-create-form'
 import type { Destination } from '@/features/destination/domain/destination'
 
 import type { ShipType } from '@/features/trip/domain/ship-type'
-import { GetDestinationsQry } from '@/features/destination/destination-list/application/get-destinations.qry'
-import { useUseCase } from '@/core/hooks/use-use-case'
 
-export function DestinationSelector() {
+export const DestinationSelector: FC<{ destinations: Destination[] }> = ({ destinations }) => {
   const router = useRouter()
-  const [destinations, setDestinations] = useState<Destination[]>([])
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
-  const [showCreateForm, setShowCreateForm] = useState(false)
-  const [getDestinationsQry] = useUseCase(GetDestinationsQry)
-
-  useEffect(() => {
-    getDestinationsQry(undefined, { logLevel: 'silent' }).then(setDestinations)
-  }, [])
 
   const handlePlanTrip = () => {
     if (selectedDestination) {
       // Navigate to trip results page instead of calling callback
       router.push(`/trip/${selectedDestination.id}/${selectedShip}`)
     }
-  }
-
-  const handleDestinationCreated = async () => {
-    setShowCreateForm(false)
-    // Refresh destinations list
-    const destinations = await getDestinationsQry()
-    setDestinations(destinations)
-  }
-
-  const handleCancelCreate = () => {
-    setShowCreateForm(false)
-  }
-
-  if (showCreateForm) {
-    return (
-      <div className="space-y-6">
-        <DestinationCreateForm onDestinationCreated={handleDestinationCreated} onCancel={handleCancelCreate} />
-      </div>
-    )
   }
 
   return (
@@ -57,7 +28,7 @@ export function DestinationSelector() {
           <h2 className="text-2xl font-bold text-foreground">
             <span className="text-white">/</span>Select Destination
           </h2>
-          <Button onClick={() => setShowCreateForm(true)} variant="outline" className="hover:bg-accent/20">
+          <Button onClick={() => router.push('/destinations/new')} variant="outline" className="hover:bg-accent/20">
             + Create New Destination
           </Button>
         </div>
