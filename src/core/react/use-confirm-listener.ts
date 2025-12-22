@@ -1,15 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { EventEmitter, EventType } from '@/core/events/event-emitter'
+import { EventEmitter, EventTypes } from '@/core/events/event-emitter'
 import { CelestiaContainer } from '@/core/container/celestia-container'
 
-export interface ConfirmOptions {
-  confirm: string
-}
-
 export function useConfirmListener() {
-  const [confirmOptions, setConfirmOptions] = useState<ConfirmOptions | null>(null)
+  const [confirm, setConfirm] = useState<string | null>(null)
   const [eventEmitter, setEventEmitter] = useState<EventEmitter | null>(null)
 
   useEffect(() => {
@@ -17,8 +13,8 @@ export function useConfirmListener() {
     const emitter = container.get(EventEmitter)
     setEventEmitter(emitter)
 
-    const unsubscribe = emitter.subscribe(EventType.CONFIRM, data => {
-      setConfirmOptions(data as ConfirmOptions)
+    const unsubscribe = emitter.subscribe(EventTypes.CONFIRM, data => {
+      setConfirm(data)
     })
 
     return () => {
@@ -28,14 +24,14 @@ export function useConfirmListener() {
 
   const handleConfirm = () => {
     if (eventEmitter) {
-      eventEmitter.dispatch(EventType.CONFIRMED, {})
-      setConfirmOptions(null)
+      eventEmitter.dispatch(EventTypes.CONFIRMED, undefined)
+      setConfirm(null)
     }
   }
 
   const handleCancel = () => {
-    setConfirmOptions(null)
+    setConfirm(null)
   }
 
-  return { confirmOptions, handleConfirm, handleCancel }
+  return { confirm, handleConfirm, handleCancel }
 }

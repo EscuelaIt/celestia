@@ -6,17 +6,17 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Button } from '@/components/ui/button'
 
 export const ConfirmDialog: FC = () => {
-  const { confirmOptions, handleConfirm, handleCancel } = useConfirmListener()
+  const { confirm, handleConfirm, handleCancel } = useConfirmListener()
 
-  if (!confirmOptions) {
+  if (!confirm) {
     return null
   }
 
   return (
-    <Dialog open={!!confirmOptions} onOpenChange={handleCancel}>
+    <Dialog open={!!confirm} onOpenChange={handleCancel}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{confirmOptions.confirm}</DialogTitle>
+          <DialogTitle>{confirm}</DialogTitle>
         </DialogHeader>
         <DialogFooter>
           <Button variant="outline" onClick={handleCancel}>

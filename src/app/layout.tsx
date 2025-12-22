@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 import { ConfirmDialog } from '@/components/confirm-dialog'
 import { SuccessDisplay } from '@/components/success-display'
 import { Toaster } from '@/components/ui/sonner'
+import { ErrorDisplay } from '@/components/error-display'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +33,7 @@ export default function RootLayout({
         {children}
         <ConfirmDialog />
         <SuccessDisplay />
+        <ErrorDisplay />
         <Toaster />
       </body>
     </html>

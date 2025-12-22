@@ -65,7 +65,7 @@ export class CelestiaContainer implements Container {
     const eventEmitter = new EventEmitter()
 
     const emptyMiddleware = new EmptyMiddleware()
-    const errorMiddleware = new ErrorMiddleware()
+    const errorMiddleware = new ErrorMiddleware(eventEmitter)
     const logMiddleware = new LogMiddleware()
     const successMiddleware = new SuccessMiddleware(eventEmitter)
     const confirmMiddleware = new ConfirmMiddleware(eventEmitter)

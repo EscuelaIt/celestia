@@ -1,39 +1,42 @@
 import type { InjectionToken } from '@/core/container/injection-token'
+import type { DomainError } from '@/core/errors/domain-error'
 
-export enum EventType {
-  SUCCESS = 'success',
-  CONFIRM = 'confirm',
-  CONFIRMED = 'confirmed',
+export const EventTypes = {
+  SUCCESS: 'success',
+  CONFIRM: 'confirm',
+  CONFIRMED: 'confirmed',
+  ERROR: 'error',
+} as const
+
+export type EventType = (typeof EventTypes)[keyof typeof EventTypes]
+
+type EventPayloads = {
+  success: string
+  confirm: string
+  confirmed: undefined
+  error: DomainError
 }
 
-type EventHandler = (data: unknown) => void
+type EventHandler<T extends EventType> = (data: EventPayloads[T]) => void
 
 export class EventEmitter {
   static readonly id: InjectionToken = Symbol('EventEmitter')
 
-  private readonly listeners: Map<EventType, EventHandler[]> = new Map()
+  private readonly listeners: {
+    [K in EventType]?: EventHandler<K>[]
+  } = {}
 
-  subscribe(event: EventType, handler: EventHandler): () => void {
-    if (!this.listeners.has(event)) {
-      this.listeners.set(event, [])
-    }
-
-    const handlers = this.listeners.get(event) as EventHandler[]
+  subscribe<T extends EventType>(event: T, handler: EventHandler<T>): () => void {
+    const handlers: EventHandler<T>[] = (this.listeners[event] ??= [])
     handlers.push(handler)
 
-    // Return unsubscribe function
     return () => {
       const index = handlers.indexOf(handler)
-      if (index !== -1) {
-        handlers.splice(index, 1)
-      }
+      if (index !== -1) handlers.splice(index, 1)
     }
   }
 
-  dispatch(event: EventType, data: unknown): void {
-    const handlers = this.listeners.get(event)
-    if (handlers) {
-      handlers.forEach(handler => handler(data))
-    }
+  dispatch<T extends EventType>(event: T, data: EventPayloads[T]): void {
+    this.listeners[event]?.forEach(handler => handler(data))
   }
 }

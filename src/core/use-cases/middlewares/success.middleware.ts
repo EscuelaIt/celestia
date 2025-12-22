@@ -1,4 +1,4 @@
-import { type EventEmitter, EventType } from '../../events/event-emitter'
+import { EventEmitter, EventTypes } from '../../events/event-emitter'
 import type { UseCase } from '../use-case'
 import type { UseCaseOptions } from '../use-case-options'
 import type { Middleware } from './middleware'
@@ -12,7 +12,7 @@ export class SuccessMiddleware implements Middleware {
     const result = await next.handle(params)
 
     if (options.success) {
-      this.eventEmitter.dispatch(EventType.SUCCESS, options.success)
+      this.eventEmitter.dispatch(EventTypes.SUCCESS, options.success)
     }
 
     return result
