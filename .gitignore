@@ -51,3 +51,10 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# AI Guidelines (generated copies)
+.github/copilot-instructions.md
+.cursor/rules/*
+.windsurfrules
+CLAUDE.md
+.junie/guidelines.md

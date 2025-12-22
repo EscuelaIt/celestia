@@ -2,6 +2,7 @@
   "name": "celestia",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -16,7 +17,7 @@
     "test:integration": "vitest --run --project integration",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "prepare": "husky"
+    "postinstall": "node ./scripts/postinstall.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.15",

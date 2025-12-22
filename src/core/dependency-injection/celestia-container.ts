@@ -115,3 +115,5 @@ export class CelestiaContainer implements Container {
     this.register(calculateTripCmd)
   }
 }
+
+export const container = CelestiaContainer.getInstance()
