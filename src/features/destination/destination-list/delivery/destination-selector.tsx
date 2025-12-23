@@ -2,17 +2,22 @@
 
 import { type FC, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Card, CardContent } from '@/shared-core/components/ui/card'
+import { Card, CardAction, CardContent } from '@/shared-core/components/ui/card'
 import { Button } from '@/shared-core/components/ui/button'
 import { Badge } from '@/shared-core/components/ui/badge'
 import type { Destination } from '@/features/destination/domain/destination'
 
 import type { ShipType } from '@/features/trip/domain/ship-type'
+import { Trash } from 'lucide-react'
+import { useUseCase } from '@/core/hooks/use-use-case'
+import { DestinationDeleteCmd } from '@/features/destination/destination-delete/application/destination-delete.cmd'
 
 export const DestinationSelector: FC<{ destinations: Destination[] }> = ({ destinations }) => {
   const router = useRouter()
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [selectedShip, setSelectedShip] = useState<ShipType>('classic')
+
+  const [destinationDeleteCmd] = useUseCase(DestinationDeleteCmd)
 
   const handlePlanTrip = () => {
     if (selectedDestination) {
@@ -44,6 +49,19 @@ export const DestinationSelector: FC<{ destinations: Destination[] }> = ({ desti
               }`}
               onClick={() => setSelectedDestination(destination)}
             >
+              <CardAction>
+                <Button
+                  data-testid="destination-delete"
+                  onClick={async () => {
+                    await destinationDeleteCmd(destination.id, {
+                      confirm: 'Are you sure you want to delete this destination?',
+                    })
+                    router.refresh()
+                  }}
+                >
+                  <Trash />
+                </Button>
+              </CardAction>
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-3xl animate-float">{destination.emoji}</span>

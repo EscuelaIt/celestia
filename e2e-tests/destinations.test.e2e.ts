@@ -84,4 +84,18 @@ test.describe('Destinations', () => {
     await expect(page.locator(`text=Test planet created at ${timestamp}`)).toBeVisible()
     await expect(page.locator('text=3000 million km')).toBeVisible()
   })
+
+  test('should delete a destination', async ({ page }) => {
+    await page.goto('/')
+    const initialDestinations = await page.locator('[data-testid="destination-card"]').count()
+
+    await page.locator('[data-testid="destination-delete"]').first().click()
+
+    await page.getByRole('button', { name: 'Confirm' }).click()
+
+    await expect(async () => {
+      const currentDestinations = await page.locator('[data-testid="destination-card"]').count()
+      expect(currentDestinations).toEqual(initialDestinations - 1)
+    }).toPass({ timeout: 1000 })
+  })
 })

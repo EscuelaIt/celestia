@@ -7,6 +7,7 @@ import type { DateTransformer } from '@/features/destination/infrastructure/date
 import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
 import { DestinationNameDuplicatedError } from '@/features/destination/domain/destination-name-duplicated.error'
 import { HttpError } from '@/shared-core/http-client/http-error'
+import type { Id } from '@/shared-core/types/id'
 
 export class DestinationApiRepository implements DestinationRepository {
   static readonly ID: InjectionToken = Symbol('DestinationApiRepository')
@@ -36,5 +37,9 @@ export class DestinationApiRepository implements DestinationRepository {
       }
       throw e
     }
+  }
+
+  async delete(id: Id): Promise<void> {
+    return this.httpClient.delete<Id, void>('destinations', id)
   }
 }

@@ -13,7 +13,11 @@ export class HttpClient {
 
   constructor(private readonly baseUrl: string) {}
 
-  private async request<Result, Body = void>(url: string, method: 'POST' | 'GET', body?: Body): Promise<Result> {
+  private async request<Result, Body = void>(
+    url: string,
+    method: 'POST' | 'GET' | 'DELETE',
+    body?: Body,
+  ): Promise<Result> {
     const response = await fetch(`${this.baseUrl}/${url}`, {
       method,
       headers: {
@@ -37,5 +41,9 @@ export class HttpClient {
 
   async post<Body, Result = void>(url: string, body: Body): Promise<Result> {
     return this.request<Result, Body>(url, 'POST', body)
+  }
+
+  async delete<Body, Result>(url: string, body: Body) {
+    return this.request<Result, Body>(url, 'DELETE', body)
   }
 }

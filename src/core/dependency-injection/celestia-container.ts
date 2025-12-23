@@ -18,6 +18,7 @@ import type { WithInjectionToken } from '@/shared-core/dependency-injection/with
 import type { AnyConstructor } from '@/shared-core/types/any-constructor'
 import { SuccessMiddleware } from '@/shared-core/use-cases/middlewares/success.middleware'
 import { ConfirmMiddleware } from '@/shared-core/use-cases/middlewares/confirm.middleware'
+import { DestinationDeleteCmd } from '@/features/destination/destination-delete/application/destination-delete.cmd'
 
 const globalForCelestia = globalThis as unknown as {
   celestia?: Container
@@ -108,11 +109,13 @@ export class CelestiaContainer implements Container {
     const createDestinationCmd = new CreateDestinationCmd(destinationApiRepository)
     const tripApiRepository = this.get(TripApiRepository)
     const calculateTripCmd = new CalculateTripCmd(tripApiRepository)
+    const destinationDeleteCmd = new DestinationDeleteCmd(destinationApiRepository)
 
     this.register(destinationOrderer)
     this.register(getDestinationsQry)
     this.register(createDestinationCmd)
     this.register(calculateTripCmd)
+    this.register(destinationDeleteCmd)
   }
 }
 
