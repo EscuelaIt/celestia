@@ -13,9 +13,7 @@ import { DestinationOrderer } from '@/features/destination/destination-list/doma
 import { DateTransformer } from '@/features/destination/infrastructure/date.transformer'
 import type { Container } from '@/shared-core/dependency-injection/container'
 import { type Environment, ENVIRONMENT_ID } from '@/core/environment/environment'
-import type { InjectionToken } from '@/shared-core/dependency-injection/injection-token'
-import type { WithInjectionToken } from '@/shared-core/dependency-injection/with-injection-token'
-import type { AnyConstructor } from '@/shared-core/types/any-constructor'
+import { BaseContainer } from '@/shared-core/dependency-injection/base-container'
 import { SuccessMiddleware } from '@/shared-core/use-cases/middlewares/success.middleware'
 import { ConfirmMiddleware } from '@/shared-core/use-cases/middlewares/confirm.middleware'
 import { DestinationDeleteCmd } from '@/features/destination/destination-delete/application/destination-delete.cmd'
@@ -24,9 +22,7 @@ const globalForCelestia = globalThis as unknown as {
   celestia?: Container
 }
 
-export class CelestiaContainer implements Container {
-  private readonly registry = new Map<InjectionToken, unknown>()
-
+export class CelestiaContainer extends BaseContainer {
   static getInstance(): Container {
     // Reuse global instance if it exists
     if (!globalForCelestia.celestia) {
@@ -36,30 +32,10 @@ export class CelestiaContainer implements Container {
   }
 
   private constructor() {
+    super()
     this.registerArtifacts()
     this.registerRepositories()
     this.registerUseCases()
-  }
-
-  get<Instance extends WithInjectionToken<AnyConstructor>>(key: Instance): InstanceType<Instance> {
-    const token = key.ID
-    if (!this.registry.has(token)) {
-      throw new Error(`Instance with key '${token.toString()}' not found.`)
-    }
-    return this.registry.get(token) as InstanceType<Instance>
-  }
-
-  register<Instance extends object>(instance: Instance): void {
-    const ctor = instance.constructor as WithInjectionToken<AnyConstructor>
-    if (!('ID' in ctor) || typeof ctor.ID !== 'symbol') {
-      const name = 'name' in ctor ? ctor.name : 'Unknown'
-      throw new Error(`Missing static ID in ${name}`)
-    }
-    this.registry.set(ctor.ID, instance)
-  }
-
-  registerWithKey<Instance>(key: InjectionToken, instance: Instance): void {
-    this.registry.set(key, instance)
   }
 
   private registerArtifacts() {
