@@ -17,6 +17,7 @@ import { BaseContainer } from '@/shared-core/dependency-injection/base-container
 import { SuccessMiddleware } from '@/shared-core/use-cases/middlewares/success.middleware'
 import { ConfirmMiddleware } from '@/shared-core/use-cases/middlewares/confirm.middleware'
 import { DestinationDeleteCmd } from '@/features/destination/destination-delete/application/destination-delete.cmd'
+import { UseCaseCompletedMiddleware } from '@/shared-core/use-cases/middlewares/use-case-completed.middleware'
 
 const globalForCelestia = globalThis as unknown as {
   celestia?: Container
@@ -45,8 +46,15 @@ export class CelestiaContainer extends BaseContainer {
     const errorMiddleware = new ErrorMiddleware(eventEmitter)
     const successMiddleware = new SuccessMiddleware(eventEmitter)
     const confirmMiddleware = new ConfirmMiddleware(eventEmitter)
+    const useCaseCompletedMiddleware = new UseCaseCompletedMiddleware(eventEmitter)
 
-    const middlewares = [confirmMiddleware, errorMiddleware, loggerMiddleware, successMiddleware]
+    const middlewares = [
+      confirmMiddleware,
+      errorMiddleware,
+      loggerMiddleware,
+      successMiddleware,
+      useCaseCompletedMiddleware,
+    ]
 
     const useCaseService = new UseCaseService(middlewares, this)
     const environment: Environment = {
@@ -61,6 +69,7 @@ export class CelestiaContainer extends BaseContainer {
     this.register(errorMiddleware)
     this.register(confirmMiddleware)
     this.register(successMiddleware)
+    this.register(useCaseCompletedMiddleware)
     this.register(useCaseService)
     this.register(httpClient)
     this.register(dateTransformer)
