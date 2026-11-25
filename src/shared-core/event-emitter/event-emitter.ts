@@ -5,6 +5,7 @@ export enum EventType {
   SUCCESS = 'success',
   CONFIRM = 'confirm',
   CONFIRMED = 'confirmed',
+  USE_CASE_COMPLETED = 'useCaseCompleted',
 }
 
 type EventHandler = (data: unknown) => void

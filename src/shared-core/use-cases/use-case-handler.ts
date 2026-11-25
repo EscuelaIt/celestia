@@ -13,6 +13,11 @@ export class UseCaseHandler implements UseCase {
     return this.middleware.intercept(params, this.useCase, this.options)
   }
 
+  // Middlewares receive the next link of the chain, so this walks down to the use case that does the work
+  static unwrap(useCase: UseCase): UseCase {
+    return useCase instanceof UseCaseHandler ? UseCaseHandler.unwrap(useCase.useCase) : useCase
+  }
+
   static create({
     middleware,
     options,

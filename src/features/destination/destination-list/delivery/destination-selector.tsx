@@ -52,12 +52,11 @@ export const DestinationSelector: FC<{ destinations: Destination[] }> = ({ desti
               <CardAction>
                 <Button
                   data-testid="destination-delete"
-                  onClick={async () => {
-                    await destinationDeleteCmd(destination.id, {
+                  onClick={() =>
+                    destinationDeleteCmd(destination.id, {
                       confirm: 'Are you sure you want to delete this destination?',
                     })
-                    router.refresh()
-                  }}
+                  }
                 >
                   <Trash />
                 </Button>
