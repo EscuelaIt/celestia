@@ -5,6 +5,10 @@ import { promises as fs } from 'fs'
 import { createNextHttpError } from '@/shared-core/http-client/create-next-http-error'
 import type { Id } from '@/shared-core/types/id'
 import type { DestinationDto } from '@/features/destination/infrastructure/destination-dto'
+import { CelestiaServerContainer } from '@/core/dependency-injection/celestia-server-container'
+import { UseCaseService } from '@/shared-core/use-cases/use-case-service'
+import { SaveDestinationCmd } from '@/features/destination/destination-create/application/save-destination.cmd'
+import { DestinationNameDuplicatedError } from '@/features/destination/domain/destination-name-duplicated.error'
 
 async function readDestinationsFromFile(): Promise<DestinationDto[]> {
   const jsonDirectory = path.join(process.cwd(), 'data')
@@ -52,34 +56,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'travelTime must include both classic and advanced values' }, { status: 400 })
     }
 
-    const destinations = await readDestinationsFromFile()
+    const useCaseService = CelestiaServerContainer.getInstance().get(UseCaseService)
+    await useCaseService.execute(SaveDestinationCmd, {
+      ...newDestination,
+      creationDate: new Date(newDestination.creationDate),
+    })
 
-    const id = newDestination.name
-
-    // Check if destination already exists
-    if (destinations.find(d => d.name === id)) {
+    return NextResponse.json({ id: newDestination.name, ...newDestination }, { status: 201 })
+  } catch (error) {
+    if (error instanceof DestinationNameDuplicatedError) {
       return NextResponse.json(
-        createNextHttpError({
-          error: 'A destination with this name already exists',
-          code: ERROR_CODES.DESTINATION_DUPLICATED_NAME,
-        }),
+        createNextHttpError({ error: error.message, code: ERROR_CODES.DESTINATION_DUPLICATED_NAME }),
         { status: 409 },
       )
     }
 
-    // Create new destination with ID
-    const destinationWithId: DestinationDto = {
-      id,
-      ...newDestination,
-    }
-
-    // Add to destinations array
-    destinations.push(destinationWithId)
-
-    await writeToFile(destinations)
-
-    return NextResponse.json(destinationWithId, { status: 201 })
-  } catch (error) {
     console.error('Error adding destination:', error)
     return NextResponse.json(createNextHttpError({ error: 'Failed to add destination', code: 'DESTINATION_CREATE' }), {
       status: 500,
